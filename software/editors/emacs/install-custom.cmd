@@ -1,7 +1,7 @@
 @echo off
 
-rem ================================
+rem ################################
 rem Installing Emacs Custom
-rem ================================
+rem ################################
 
 git clone "https://github.com/GabrielFrigo4/.emacs.d" "%USERPROFILE%\.emacs.d"

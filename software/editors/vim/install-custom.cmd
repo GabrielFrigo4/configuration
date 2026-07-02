@@ -1,14 +1,14 @@
 @echo off
 
-rem ================================
+rem ################################
 rem Installing Vim Custom
-rem ================================
+rem ################################
 
 git clone "https://github.com/GabrielFrigo4/vimfiles" "%USERPROFILE%\vimfiles"
 
-rem ================================
+rem ################################
 rem Configuring Vim Entry Point
-rem ================================
+rem ################################
 
 (
 echo set rtp+=~/vimfiles

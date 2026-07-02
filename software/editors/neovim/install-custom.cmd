@@ -1,7 +1,7 @@
 @echo off
 
-rem ================================
+rem ################################
 rem Installing Neovim Custom
-rem ================================
+rem ################################
 
 git clone "https://github.com/GabrielFrigo4/nvim" "%LOCALAPPDATA%\nvim"

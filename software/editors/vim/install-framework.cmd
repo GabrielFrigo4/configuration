@@ -1,26 +1,26 @@
 @echo off
 
-rem ================================
+rem ################################
 rem Installing SpaceVim Framework
-rem ================================
+rem ################################
 
-rem --------------------------------
+rem ################################
 rem Remove Lixo
-rem --------------------------------
+rem ################################
 rmdir /s /q "%USERPROFILE%\.vim" 2>nul
 del /q "%USERPROFILE%\_vimrc" 2>nul
 rmdir /s /q "%USERPROFILE%\.SpaceVim" 2>nul
 rmdir /s /q "%USERPROFILE%\.SpaceVim.d" 2>nul
 
-rem --------------------------------
+rem ################################
 rem Setup SpaceVim
-rem --------------------------------
+rem ################################
 git clone "https://github.com/SpaceVim/SpaceVim.git" "%USERPROFILE%\.SpaceVim"
 mkdir "%USERPROFILE%\.SpaceVim.d\autoload" 2>nul
 
-rem --------------------------------
+rem ################################
 rem Setup init.toml
-rem --------------------------------
+rem ################################
 (
 echo # =============================================================================
 echo # Opções Gerais
@@ -62,9 +62,9 @@ echo [[layers]]
 echo    name = "lsp"
 ) > "%USERPROFILE%\.SpaceVim.d\init.toml"
 
-rem --------------------------------
+rem ################################
 rem Setup myspacevim.vim
-rem --------------------------------
+rem ################################
 (
 echo function! myspacevim#before(^) abort
 echo    " Ativar Cursor Piscante

@@ -1,23 +1,23 @@
 @echo off
 
-rem ================================
+rem ################################
 rem Installing LazyVim Framework
-rem ================================
+rem ################################
 
-rem --------------------------------
+rem ################################
 rem Remove Lixo
-rem --------------------------------
+rem ################################
 rmdir /s /q "%LOCALAPPDATA%\nvim" 2>nul
 
-rem --------------------------------
+rem ################################
 rem Setup LazyVim
-rem --------------------------------
+rem ################################
 git clone "https://github.com/LazyVim/starter" "%LOCALAPPDATA%\nvim"
 rmdir /s /q "%LOCALAPPDATA%\nvim\.git" 2>nul
 
-rem --------------------------------
+rem ################################
 rem Setup options.lua
-rem --------------------------------
+rem ################################
 mkdir "%LOCALAPPDATA%\nvim\lua\config" 2>nul
 (
 echo -- Ativar Cursor Piscante

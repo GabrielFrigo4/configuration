@@ -1,26 +1,26 @@
 @echo off
 
-rem ================================
+rem ################################
 rem Installing Doom Emacs Framework
-rem ================================
+rem ################################
 
-rem --------------------------------
+rem ################################
 rem Remove Lixo
-rem --------------------------------
+rem ################################
 rmdir /s /q "%USERPROFILE%\.emacs" 2>nul
 rmdir /s /q "%USERPROFILE%\.emacs.d" 2>nul
 rmdir /s /q "%USERPROFILE%\.doom.d" 2>nul
 
-rem --------------------------------
+rem ################################
 rem Setup Doom Emacs
-rem --------------------------------
+rem ################################
 git clone --depth 1 "https://github.com/doomemacs/doomemacs" "%USERPROFILE%\.emacs.d"
 mkdir "%USERPROFILE%\.doom.d\snippets" 2>nul
 call "%USERPROFILE%\.emacs.d\bin\doom.cmd" install --force
 
-rem --------------------------------
+rem ################################
 rem Setup Packages
-rem --------------------------------
+rem ################################
 (
 echo (package! mermaid-mode^)
 echo (package! ob-mermaid^)
@@ -28,16 +28,16 @@ echo (package! ob-mermaid^)
 
 call "%USERPROFILE%\.emacs.d\bin\doom.cmd" sync
 
-rem --------------------------------
+rem ################################
 rem Setup init.el
-rem --------------------------------
+rem ################################
 powershell -Command "(Get-Content '%USERPROFILE%\.doom.d\init.el') -replace ';;tree-sitter','tree-sitter' -replace ';;\(cc \+lsp\)','(cc +lsp +tree-sitter)' -replace ';;\(rust \+lsp\)','(rust +lsp +tree-sitter)' -replace ';;python','(python +lsp +tree-sitter)' -replace ';;javascript','(javascript +lsp +tree-sitter)' -replace ';;typescript','(typescript +lsp +tree-sitter)' -replace ';;toml','(toml +lsp +tree-sitter)' -replace ';;sql','(sql +lsp +tree-sitter)' -replace 'sh\s*;','(sh +tree-sitter) ;' | Set-Content '%USERPROFILE%\.doom.d\init.el'"
 
 call "%USERPROFILE%\.emacs.d\bin\doom.cmd" sync
 
-rem --------------------------------
+rem ################################
 rem Setup config.el
-rem --------------------------------
+rem ################################
 (
 echo ;; Configuração de Fonte ^(JetBrains Mono^)
 echo (setq doom-font ^(font-spec :family "JetBrainsMonoNL Nerd Font Mono" :size 16 :weight 'medium^)
@@ -61,7 +61,7 @@ echo   ^(setq ob-mermaid-cli-path "mmdc"^)^)
 
 call "%USERPROFILE%\.emacs.d\bin\doom.cmd" sync
 
-rem --------------------------------
+rem ################################
 rem Update Doom Emacs
-rem --------------------------------
+rem ################################
 call "%USERPROFILE%\.emacs.d\bin\doom.cmd" upgrade

@@ -24,21 +24,18 @@ Todas as ações aqui descritas são guiadas pela busca da nossa filosofia princ
 - ~~Fazer uma varredura para remover comentários `#` (shell) ou `rem` (cmd) desnecessários ou excessivamente literais em todos os scripts.~~
 - ~~Focar no padrão visual já estabelecido de blocos delimitadores com múltiplos caracteres (`### ################################`) para separar as seções, mantendo o código conciso e legível.~~
 
-## 4. Limpeza de Comentários
 
-- Fazer uma varredura para remover comentários `#` (shell) ou `rem` (cmd) desnecessários ou excessivamente literais em todos os scripts.
-- Focar no padrão visual já estabelecido de blocos delimitadores com múltiplos caracteres (`### ################################`) para separar as seções, mantendo o código conciso e legível.
-- Ainda tem script faltando isso, principalemte os .cmd, mas em geral já está quase pronto
 
 ## 5. Auditoria de Softwares ✅
 
 - ~~Limpar comandos redundantes.~~
 - ~~Remover pacotes e softwares desnecessários que possam estar inflando os scripts de instalação e poluindo o sistema do host.~~
 
-## 6. Evolução para Containers
+## 6. Evolução para Containers ✅
 
-- Alterar a filosofia do ambiente para um modelo focado em **Containers** em vez de instalar e jogar todas as dependências de desenvolvimento e banco de dados diretamente no host.
-- Atingir sistemas compatíveis como Linux e FreeBSD (para o Windows não haverá grandes mudanças nesse escopo específico).
+- ~~Alterar a filosofia do ambiente para um modelo focado em **Containers** em vez de instalar e jogar todas as dependências de desenvolvimento e banco de dados diretamente no host.~~
+- ~~Atingir sistemas compatíveis como Linux e FreeBSD (para o Windows não haverá grandes mudanças nesse escopo específico).~~
+- Diretórios de desenvolvimento (como `linux/*/devel` e `freebsd/devel`) que instalavam compiladores e bancos de dados (ex. PostgreSQL) diretamente no Host foram permanentemente excluídos. O desenvolvimento agora usará Incus, LXC ou BastilleBSD conforme definido nos docs.
 
 ## 7. Macrorit no Windows ✅
 
@@ -51,13 +48,13 @@ Todas as ações aqui descritas são guiadas pela busca da nossa filosofia princ
 - ~~Colocar em um README como Configurar o Clipboard do Firefox~~
 - Documentação criada em `docs/FIREFOX.md` com instruções de `about:config` e `dom.events.testing.asyncClipboard`.
 
-## 9. Linuxlator (No Host e nas Jails)
-- Maneira Simples de Subistituir Bhyve para cenarios mais simples (Jails / Bastille)
-- Usar no Host como uma extensão do catalogo FreeBSD (pkg / ports)
-- Continuando mantendo / respeitando a Filosofia do Projeto em pé
+## 9. Linuxlator (No Host e nas Jails) ✅
+- ~~Maneira Simples de Subistituir Bhyve para cenarios mais simples (Jails / Bastille)~~
+- ~~Usar no Host como uma extensão do catalogo FreeBSD (pkg / ports)~~
+- ~~Continuando mantendo / respeitando a Filosofia do Projeto em pé~~
+- Filosofia e diretrizes documentadas em `docs/LINUXLATOR.md`.
 
-## 10. Arrumar o Vault
+## 10. Arrumar o Vault ✅
 
-- Ele está 100% funcional em tudo, mas nn funciona quando eu rodo um script, pelo menos nos 
-- orbs-server
-- frigo-server
+- ~~Ele está 100% funcional em tudo, mas nn funciona quando eu rodo um script, pelo menos nos orbs-server e frigo-server~~
+- Corrigido o `EOF` nos scripts de servidor (FreeBSD, Arch, Windows) para carregar as variáveis no tempo de execução e não durante o setup, permitindo que a injeção do Vault no Shell funcione corretamente no non-interactive script.
