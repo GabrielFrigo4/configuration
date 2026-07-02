@@ -3,58 +3,6 @@
 Este documento centraliza as próximas evoluções arquiteturais e de limpeza planejadas para este repositório de configuração.
 Todas as ações aqui descritas são guiadas pela busca da nossa filosofia principal: atingir um **"Clean Host"** puramente funcional, com desenvolvimento 100% isolado em **Containers/Hypervisors**, e garantir a total modularidade dos nossos 3 pilares (Configuration, Shell, Vault).
 
-## 1. Dependências do Vault ✅
+## 1. Dependências do Vault
 
-- ~~Remover chamadas manuais de `source ~/.vault/config.env` espalhadas pelos scripts.~~
-- ~~Como o Vault (e o Shell) agora são carregados automaticamente pelo ambiente, refatorar os códigos para que eles apenas consumam as variáveis, assumindo que o ecossistema já as proveu globalmente.~~
-
-## 2. Modularização do Bootstrap ✅
-
-- ~~Modularizar intensamente o diretório `/bootstrap`.~~
-- ~~Quebrar os scripts monolíticos legados em componentes menores, reaproveitáveis e organizados, similar ao modelo focado de "uma coisa, um lugar".~~
-
-## 3. Refatoração FreeBSD ✅
-
-- ~~Extrair os heredocs de criação de arquivos do FreeBSD, seguindo a mesma estratégia de refatoração aplicada ao Linux e ao Windows.~~
-- ~~**Atenção especial:** O Konsole no FreeBSD não é igual ao do Linux (por exemplo, paths e shells diferem, como `/usr/local/bin/zsh`), exigindo profiles adaptados e não apenas cópias diretas.~~
-- Profiles criados em `software/terminals/konsole/freebsd/` com caminhos corretos (`/usr/local/bin/bash`, `/usr/local/bin/zsh`). O `gui.sh` agora usa `cp` para instalá-los.
-
-## 4. Limpeza de Comentários ✅
-
-- ~~Fazer uma varredura para remover comentários `#` (shell) ou `rem` (cmd) desnecessários ou excessivamente literais em todos os scripts.~~
-- ~~Focar no padrão visual já estabelecido de blocos delimitadores com múltiplos caracteres (`### ################################`) para separar as seções, mantendo o código conciso e legível.~~
-
-
-
-## 5. Auditoria de Softwares ✅
-
-- ~~Limpar comandos redundantes.~~
-- ~~Remover pacotes e softwares desnecessários que possam estar inflando os scripts de instalação e poluindo o sistema do host.~~
-
-## 6. Evolução para Containers ✅
-
-- ~~Alterar a filosofia do ambiente para um modelo focado em **Containers** em vez de instalar e jogar todas as dependências de desenvolvimento e banco de dados diretamente no host.~~
-- ~~Atingir sistemas compatíveis como Linux e FreeBSD (para o Windows não haverá grandes mudanças nesse escopo específico).~~
-- Diretórios de desenvolvimento (como `linux/*/devel` e `freebsd/devel`) que instalavam compiladores e bancos de dados (ex. PostgreSQL) diretamente no Host foram permanentemente excluídos. O desenvolvimento agora usará Incus, LXC ou BastilleBSD conforme definido nos docs.
-
-## 7. Macrorit no Windows ✅
-
-- ~~Atualizar o Macrorit (Partition Expert)~~
-- ~~Remover do Chocolatey (antigo) e mover para um novo~~
-- Movido para `software/external.md` como download manual oficial do site macrorit.com.
-
-## 8. Firefox Clipboard ✅
-
-- ~~Colocar em um README como Configurar o Clipboard do Firefox~~
-- Documentação criada em `docs/FIREFOX.md` com instruções de `about:config` e `dom.events.testing.asyncClipboard`.
-
-## 9. Linuxlator (No Host e nas Jails) ✅
-- ~~Maneira Simples de Subistituir Bhyve para cenarios mais simples (Jails / Bastille)~~
-- ~~Usar no Host como uma extensão do catalogo FreeBSD (pkg / ports)~~
-- ~~Continuando mantendo / respeitando a Filosofia do Projeto em pé~~
-- Filosofia e diretrizes documentadas em `docs/LINUXLATOR.md`.
-
-## 10. Arrumar o Vault ✅
-
-- ~~Ele está 100% funcional em tudo, mas nn funciona quando eu rodo um script, pelo menos nos orbs-server e frigo-server~~
-- Corrigido o `EOF` nos scripts de servidor (FreeBSD, Arch, Windows) para carregar as variáveis no tempo de execução e não durante o setup, permitindo que a injeção do Vault no Shell funcione corretamente no non-interactive script.
+Os Scripts Server não estão conseguindo acessar as variaveis do Vault...
