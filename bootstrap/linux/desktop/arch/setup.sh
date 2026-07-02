@@ -67,8 +67,16 @@ sudo pacman --needed --noconfirm -S git
 sudo pacman --needed --noconfirm -S git-credential-oauth
 sudo pacman --needed --noconfirm -S github-cli
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-. "${SCRIPT_DIR}/../../../common/git.sh"
+rm -f "${HOME}/.gitconfig"
+git config --global credential.helper '!gh auth git-credential'
+git config --global user.email "$GIT_AUTHOR_EMAIL"
+git config --global user.name "$GIT_AUTHOR_NAME"
+git config --global init.defaultBranch "main"
+git config --global pull.rebase false
+git config --global color.ui auto
+
+gh auth login
+gh auth setup-git
 
 ### ################################
 ### Installing LXC Tools
@@ -320,56 +328,8 @@ yay --needed --noconfirm -S ttf-carlito
 ### Nerd Fonts
 ### ################################
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "${SCRIPT_DIR}/../../../common/fonts.sh"
-
-### ################################################################################################################################
-
-### ################################
-### Setup Real Server
-### ################################
-
-chmod 0600 "${FRIGO_SERVER_KEY}"
-cat << EOF | sudo tee "/usr/local/bin/frigo-server" > "/dev/null"
-#!/bin/sh
-ssh -i "${FRIGO_SERVER_KEY}" "ubuntu@${FRIGO_SERVER_IP}"
-EOF
-sudo chmod +x "/usr/local/bin/frigo-server"
-
-chmod 0600 "${ORBS_SERVER_KEY}"
-cat << EOF | sudo tee "/usr/local/bin/orbs-server" > "/dev/null"
-#!/bin/sh
-ssh -i "${ORBS_SERVER_KEY}" "ubuntu@${ORBS_SERVER_IP}"
-EOF
-sudo chmod +x "/usr/local/bin/orbs-server"
-
-### ################################
-### Setup VM Server
-### ################################
-
-cat << 'EOF' | sudo tee "/usr/local/bin/freebsd-start" > "/dev/null"
-#!/usr/bin/zsh
-virsh --connect "qemu:///system" start FreeBSD
-EOF
-sudo chmod +x "/usr/local/bin/freebsd-start"
-
-cat << 'EOF' | sudo tee "/usr/local/bin/freebsd-close" > "/dev/null"
-#!/usr/bin/zsh
-virsh --connect "qemu:///system" destroy FreeBSD
-EOF
-sudo chmod +x "/usr/local/bin/freebsd-close"
-
-cat << 'EOF' | sudo tee "/usr/local/bin/freebsd-restart" > "/dev/null"
-#!/usr/bin/zsh
-virsh --connect "qemu:///system" reboot FreeBSD
-EOF
-sudo chmod +x "/usr/local/bin/freebsd-restart"
-
-cat << 'EOF' | sudo tee "/usr/local/bin/freebsd-server" > "/dev/null"
-#!/usr/bin/zsh
-FREEBSD_IP="$(virsh --connect "qemu:///system" domifaddr FreeBSD | awk '$(3) == "ipv4" {print $(4)}' | cut -d'/' -f1)"
-ssh "freebsd@${FREEBSD_IP}"
-EOF
-sudo chmod +x "/usr/local/bin/freebsd-server"
 
 ### ################################################################################################################################
 
@@ -381,19 +341,6 @@ yay --needed --noconfirm -S wayland
 yay --needed --noconfirm -S lib32-wayland
 yay --needed --noconfirm -S hyprwayland-scanner
 yay --needed --noconfirm -S wayland-protocols
-
-### ################################
-### Installing KDE Tools
-### ################################
-
-yay --needed --noconfirm -S kde-applications
-yay --needed --noconfirm -S kde-utilities
-
-### ################################
-### Installing GNOME Tools
-### ################################
-
-yay --needed --noconfirm -S gnome-screenshot
 
 ### ################################
 ### Installing System Tools
@@ -436,296 +383,11 @@ yay --needed --noconfirm -S ngrok
 
 yay --needed --noconfirm -S wine
 
-### ################################################################################################################################
-
-### ################################
-### Installing Rust CLI Tools
-### ################################
-
-yay --needed --noconfirm -S fd
-yay --needed --noconfirm -S bat
-yay --needed --noconfirm -S eza
-yay --needed --noconfirm -S grex
-yay --needed --noconfirm -S ripgrep
-yay --needed --noconfirm -S repgrep
-
-### ################################
-### Installing Embedded Tools
-### ################################
-
-yay --needed --noconfirm -S platformio-core
-
-### ################################
-### Installing PDF Tools
-### ################################
-
-yay --needed --noconfirm -S pdftk
-yay --needed --noconfirm -S img2pdf
-yay --needed --noconfirm -S jbig2enc
-yay --needed --noconfirm -S poppler
-yay --needed --noconfirm -S mscgen
-yay --needed --noconfirm -S pdf2svg
-yay --needed --noconfirm -S enchant
-yay --needed --noconfirm -S graphviz
-yay --needed --noconfirm -S jpegoptim
-yay --needed --noconfirm -S pdfsizeopt-git
-
-### ################################
-### Installing TeX / LaTeX
-### ################################
-
-yay --needed --noconfirm -S texlive
-yay --needed --noconfirm -S texlive-core
-yay --needed --noconfirm -S texlive-latexextra
-yay --needed --noconfirm -S texlive-langportuguese
-yay --needed --noconfirm -S texlive-fontsextra
-yay --needed --noconfirm -S texlive-pictures
-yay --needed --noconfirm -S texlive-pstricks
-
-### ################################
-### Installing Pandoc Tools
-### ################################
-
-yay --needed --noconfirm -S pandoc-plot
-yay --needed --noconfirm -S pandoc-cli
-
-### ################################
-### Installing Media Tools
-### ################################
-
-yay --needed --noconfirm -S imagemagick
-yay --needed --noconfirm -S ffmpeg
-yay --needed --noconfirm -S yt-dlp
-yay --needed --noconfirm -S ytui
-yay --needed --noconfirm -S ani-cli
-
-### ################################
-### Installing OCR Tools
-### ################################
-
-yay --needed --noconfirm -S ocrs
-yay --needed --noconfirm -S gocr
-yay --needed --noconfirm -S ocrad
-yay --needed --noconfirm -S tesseract
-yay --needed --noconfirm -S tesseract-data-eng
-yay --needed --noconfirm -S tesseract-data-por
-yay --needed --noconfirm -S ocrmypdf
-
-### ################################
-### Installing Hardware Tools
-### ################################
-
-yay --needed --noconfirm -S esptool
-
-### ################################
-### Installing Security Tools
-### ################################
-
-yay --needed --noconfirm -S dirb
-
 ### ################################
 ### Installing System Fetch
 ### ################################
 
 yay --needed --noconfirm -S fastfetch
-
-### ################################################################################################################################
-
-### ################################
-### Installing Terminal Editors
-### ################################
-
-yay --needed --noconfirm -S emacs
-yay --needed --noconfirm -S neovim
-yay --needed --noconfirm -S gvim
-yay --needed --noconfirm -S helix
-yay --needed --noconfirm -S micro
-yay --needed --noconfirm -S mg
-
-### ################################
-### Setup Helix Wrapper
-### ################################
-
-cat << 'EOF' | sudo tee "/usr/bin/hx" > "/dev/null"
-#!/usr/bin/sh
-helix "$@"
-echo -e -n "\x1b[\x30 q"
-EOF
-sudo chmod +x "/usr/bin/hx"
-
-### ################################
-### Setup Editor Configs
-### ################################
-
-. "${SCRIPT_DIR}/../../../common/editors.sh"
-
-### ################################################################################################################################
-
-### ################################
-### Installing General Software
-### ################################
-
-yay --needed --noconfirm -S libreoffice-still
-yay --needed --noconfirm -S onlyoffice-desktopeditors
-
-### ################################
-### Installing Web Browsers
-### ################################
-
-yay --needed --noconfirm -S microsoft-edge-stable
-yay --needed --noconfirm -S google-chrome
-
-### ################################
-### Installing Communication Tools
-### ################################
-
-yay --needed --noconfirm -S discord
-yay --needed --noconfirm -S zoom
-
-### ################################
-### Installing Media Software
-### ################################
-
-yay --needed --noconfirm -S handbrake
-yay --needed --noconfirm -S obs-studio
-yay --needed --noconfirm -S feh
-yay --needed --noconfirm -S scilab
-
-### ################################
-### Installing Drawing Software
-### ################################
-
-yay --needed --noconfirm -S gimp
-yay --needed --noconfirm -S krita
-yay --needed --noconfirm -S inkscape
-yay --needed --noconfirm -S libresprite
-yay --needed --noconfirm -S blender
-
-### ################################
-### Installing CAD Software
-### ################################
-
-yay --needed --noconfirm -S freecad
-
-### ################################
-### Installing Audio/Peripheral Tools
-### ################################
-
-yay --needed --noconfirm -S galaxybudsclient-bin
-yay --needed --noconfirm -S etcher-bin
-
-### ################################
-### Installing TeX Software
-### ################################
-
-yay --needed --noconfirm -S texworks
-
-### ################################
-### Installing VMWare
-### ################################
-
-yay --needed --noconfirm -S vmware-keymaps
-yay --needed --noconfirm -S vmware-workstation
-
-### ################################
-### Installing QEMU
-### ################################
-
-yay --needed --noconfirm -S qemu-full
-
-### ################################
-### Installing Remote Desktop
-### ################################
-
-yay --needed --noconfirm -S remmina
-yay --needed --noconfirm -S freerdp
-
-### ################################################################################################################################
-
-### ################################
-### Installing Reverse Engineering
-### ################################
-
-yay --needed --noconfirm -S xelfviewer-bin
-yay --needed --noconfirm -S xpeviewer-bin
-yay --needed --noconfirm -S xmachoviewer-bin
-yay --needed --noconfirm -S xapkdetector-bin
-yay --needed --noconfirm -S ghidra
-
-### ################################
-### Installing Debuggers
-### ################################
-
-yay --needed --noconfirm -S gf2-git
-
-### ################################
-### Installing Network Analysis Tools
-### ################################
-
-yay --needed --noconfirm -S wireshark-cli
-yay --needed --noconfirm -S wireshark-qt
-sudo usermod -aG wireshark "$(id -un)"
-newgrp wireshark
-cat << 'EOF' | sudo tee "/usr/local/bin/wireshark" > "/dev/null"
-#!/bin/bash
-QT_QPA_PLATFORMTHEME="" /usr/bin/wireshark "$@"
-EOF
-sudo chmod +x "/usr/local/bin/wireshark"
-
-### ################################
-### Installing Database Tools
-### ################################
-
-yay --needed --noconfirm -S dbeaver
-
-### ################################
-### Installing Game Engines
-### ################################
-
-yay --needed --noconfirm -S unityhub
-yay --needed --noconfirm -S godot
-
-### ################################
-### Installing Electronics Tools
-### ################################
-
-yay --needed --noconfirm -S arduino-ide-bin
-yay --needed --noconfirm -S arduino-cli
-yay --needed --noconfirm -S digital
-yay --needed --noconfirm -S openfpgaloader
-yay --needed --noconfirm -S quartus-free
-yay --needed --noconfirm -S gtkwave
-yay --needed --noconfirm -S ghdl
-
-### ################################
-### Installing Google Tools
-### ################################
-
-yay --needed --noconfirm -S gdown
-
-### ################################################################################################################################
-
-### ################################
-### Installing Git GUI Tools
-### ################################
-
-yay --needed --noconfirm -S github-desktop-bin
-yay --needed --noconfirm -S gitkraken-cli-bin
-yay --needed --noconfirm -S gitkraken
-
-### ################################
-### Installing Git Credential Manager
-### ################################
-
-yay --needed --noconfirm -S git-credential-manager-bin
-git-credential-manager configure
-
-### ################################
-### Installing Firebase
-### ################################
-
-curl -sL "https://firebase.tools" | sudo upgrade=true bash
-yay --needed --noconfirm -S firebase-tools-bin
 
 ### ################################################################################################################################
 
@@ -748,38 +410,8 @@ sudo virsh --connect qemu:///system net-start default
 
 ### ################################################################################################################################
 
-### ################################
-### Installing Code Editors
-### ################################
-
-yay --needed --noconfirm -S geany
-mkdir -p "${HOME}/.config/geany/colorschemes"
-cd "${HOME}/.config/geany/colorschemes"
-wget "https://raw.githubusercontent.com/geany/geany-themes/master/colorschemes/one-dark.conf"
-cd ~
-
-curl -f https://zed.dev/install.sh | sh
-yay --needed --noconfirm -S zed
-
-yay --needed --noconfirm -S visual-studio-code-bin
-yay --needed --noconfirm -S vscodium-bin
-yay --needed --noconfirm -S code
-
-yay --needed --noconfirm -S antigravity
-yay --needed --noconfirm -S antigravity-ide
-
-cat << 'EOF' | sudo tee "/usr/bin/ant" > "/dev/null"
-#!/usr/bin/sh
-antigravity-ide "$@"
-EOF
-sudo chmod +x "/usr/bin/ant"
-
-### ################################################################################################################################
-
-### ################################
-### Installing Games
-### ################################
-
-yay --needed --noconfirm -S steam
-
-### ################################################################################################################################
+# Execute additional setups if needed
+# ./softwares.sh
+# ./editors.sh
+# ./tools.sh
+# ./servers.sh

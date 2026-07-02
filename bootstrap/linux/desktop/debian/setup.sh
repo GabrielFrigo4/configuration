@@ -151,8 +151,16 @@ rm "./gcm.deb"
 ### Setup Git Config
 ### ################################
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-. "${SCRIPT_DIR}/../../../common/git.sh"
+rm -f "${HOME}/.gitconfig"
+git config --global credential.helper '!gh auth git-credential'
+git config --global user.email "$GIT_AUTHOR_EMAIL"
+git config --global user.name "$GIT_AUTHOR_NAME"
+git config --global init.defaultBranch "main"
+git config --global pull.rebase false
+git config --global color.ui auto
+
+gh auth login
+gh auth setup-git
 
 ### ################################
 ### Setup LXC
@@ -253,6 +261,7 @@ sudo apt install --yes fonts-crosextra-carlito
 ### Nerd Fonts
 ### ################################
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "${SCRIPT_DIR}/../../../common/fonts.sh"
 
 ### ################################################################################################################################
@@ -292,213 +301,15 @@ sudo apt install --yes elinks w3m lynx
 
 sudo apt install --yes wine
 
-### ################################################################################################################################
-
-### ################################
-### Installing Window Editors
-### ################################
-
-flatpak install -y flathub com.visualstudio.code
-flatall com.visualstudio.code
-cat << 'EOF' | tee "${HOME}/.local/bin/code" > "/dev/null"
-#!/usr/bin/bash
-flatpak run com.visualstudio.code "$@"
-EOF
-chmod +x "${HOME}/.local/bin/code"
-cat << 'EOF' | tee "${HOME}/.local/bin/code-nvc" > "/dev/null"
-#!/usr/bin/bash
-DRI_PRIME=1 ${HOME}/.local/bin/code "$@"
-EOF
-chmod +x "${HOME}/.local/bin/code-nvc"
-
-curl -f https://zed.dev/install.sh | bash
-cat << 'EOF' | tee "${HOME}/.local/bin/zed-nvc" > "/dev/null"
-#!/usr/bin/bash
-DRI_PRIME=1 ${HOME}/.local/bin/zed "$@"
-EOF
-chmod +x "${HOME}/.local/bin/zed-nvc"
-
-sudo apt install --yes geany
-cat << 'EOF' | tee "${HOME}/.local/bin/geany" > "/dev/null"
-#!/usr/bin/bash
-GTK_THEME=Adwaita:dark /usr/bin/geany "$@"
-EOF
-chmod +x "${HOME}/.local/bin/geany"
-
-sudo mkdir -p "/etc/apt/keyrings"
-curl -fsSL "https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg" | \
-sudo gpg --dearmor --yes -o "/etc/apt/keyrings/antigravity-repo-key.gpg"
-cat << 'EOF' | sudo tee "/etc/apt/sources.list.d/antigravity.list" > "/dev/null"
-deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main
-EOF
-sudo apt update
-sudo apt install --yes antigravity
-
-cat << 'EOF' | sudo tee "/usr/bin/ant" > "/dev/null"
-#!/usr/bin/sh
-antigravity "$@"
-EOF
-sudo chmod +x "/usr/bin/ant"
-
-### ################################
-### Installing Terminal Editors
-### ################################
-
-sudo apt install --yes mg
-sudo apt install --yes micro
-sudo apt install --yes hx
-sudo apt install --yes neovim
-sudo apt install --yes vim
-sudo apt install --yes emacs
-
-### ################################
-### Setup Helix Wrapper
-### ################################
-
-cat << 'EOF' | tee "${HOME}/.local/bin/hx" > "/dev/null"
-#!/usr/bin/bash
-/usr/bin/hx "$@"
-echo -e -n "\x1b[\x30 q"
-EOF
-chmod +x "${HOME}/.local/bin/hx"
-
-### ################################
-### Setup Editor Configs
-### ################################
-
-. "${SCRIPT_DIR}/../../../common/editors.sh"
-
-### ################################################################################################################################
-
-### ################################
-### Installing Rust CLI Tools
-### ################################
-
-sudo apt install --yes eza
-sudo apt install --yes bat
-sudo apt install --yes fd-find
-sudo apt install --yes ripgrep
-
-### ################################
-### Alias Rust Tools
-### ################################
-
-cat << 'EOF' | sudo tee "/usr/local/bin/bat" > "/dev/null"
-#!/bin/bash
-batcat "$@"
-EOF
-sudo chmod +x "/usr/local/bin/bat"
-
-cat << 'EOF' | sudo tee "/usr/local/bin/fd" > "/dev/null"
-#!/bin/bash
-fdfind "$@"
-EOF
-sudo chmod +x "/usr/local/bin/fd"
-
-### ################################
-### Installing TeX / LaTeX
-### ################################
-
-sudo apt install --yes texlive-latex-extra
-sudo apt install --yes texlive-lang-portuguese
-
-### ################################
-### Installing Pandoc Tools
-### ################################
-
-sudo apt install --yes pandoc
-sudo apt install --yes weasyprint
-
-### ################################
-### Installing Media Tools
-### ################################
-
-sudo apt install --yes imagemagick
-sudo apt install --yes ffmpeg
-
 ### ################################
 ### Installing System Fetch
 ### ################################
 
 sudo apt install --yes fastfetch
 
-### ################################
-### Installing File Tools
-### ################################
-
-sudo apt install --yes dos2unix
-
-### ################################
-### Installing Security Tools
-### ################################
-
-sudo apt install --yes checksec
-sudo apt install --yes dirb
-
-### ################################
-### Installing Firebase
-### ################################
-
-curl -sL "https://firebase.tools" | sudo upgrade=true bash
-
 ### ################################################################################################################################
 
-### ################################
-### Installing Network Analysis Tools
-### ################################
-
-sudo apt install --yes wireshark
-sudo dpkg-reconfigure wireshark-common
-sudo usermod -aG wireshark "$(id -un)"
-newgrp wireshark
-cat << 'EOF' | sudo tee "/usr/local/bin/wireshark" > "/dev/null"
-#!/bin/bash
-QT_QPA_PLATFORMTHEME="" /usr/bin/wireshark "$@"
-EOF
-sudo chmod +x "/usr/local/bin/wireshark"
-
-### ################################
-### Installing Database Tools
-### ################################
-
-sudo wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key
-echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee "/etc/apt/sources.list.d/dbeaver.list" > "/dev/null"
-sudo apt update
-sudo apt install --yes dbeaver-ce
-
-### ################################
-### Installing Web Browsers
-### ################################
-
-curl -fSsL "https://dl.google.com/linux/linux_signing_key.pub" | sudo gpg --dearmor | sudo tee "/usr/share/keyrings/google-chrome.gpg" > "/dev/null"
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee "/etc/apt/sources.list.d/google-chrome.list"
-sudo apt update
-sudo apt install --yes google-chrome-stable
-
-curl -fSsL "https://packages.microsoft.com/keys/microsoft.asc" | sudo gpg --dearmor | sudo tee "/usr/share/keyrings/microsoft-edge.gpg" > "/dev/null"
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-edge.gpg] https://packages.microsoft.com/repos/edge stable main" | sudo tee "/etc/apt/sources.list.d/microsoft-edge.list"
-sudo apt update
-sudo apt install --yes microsoft-edge-stable
-
-### ################################
-### Installing Git GUI Tools
-### ################################
-
-flatpak install -y flathub io.github.shiftey.Desktop
-flatall io.github.shiftey.Desktop
-
-### ################################
-### Installing Office Software
-### ################################
-
-flatpak install -y flathub org.onlyoffice.desktopeditors
-flatall org.onlyoffice.desktopeditors
-
-### ################################
-### Installing pgAdmin
-### ################################
-
-flatpak install -y flathub org.pgadmin.pgadmin4
-flatall org.pgadmin.pgadmin4
-
-### ################################################################################################################################
+# Execute additional setups if needed
+# ./softwares.sh
+# ./editors.sh
+# ./tools.sh

@@ -17,9 +17,9 @@ A solução adotada é manter **poucos scripts executáveis por perfil**, extrai
 ```
 bootstrap/
 ├── common/               # Lógica compartilhada (UNIX-wide, sourced internamente)
-│   ├── git.sh            # Configuração global do Git (usa variáveis do Vault)
+│   ├── editors.sh        # Clone configs de editores (Nvim, Emacs, Vim, Helix, Micro)
 │   ├── fonts.sh          # Instalação de Nerd Fonts
-│   └── tools.sh          # Deploy de dotfiles (clangd, clang-format, prettier, stylua)
+│   └── tools.sh          # Deploy de dotfiles via heredocs (clangd, prettier, stylua)
 ├── freebsd/
 │   ├── desktop/          # FreeBSD com interface gráfica (KDE)
 │   │   ├── setup.sh      # Script principal: sistema, pacotes, jails, bastille
@@ -43,8 +43,8 @@ bootstrap/
 │       └── lsp.sh        # LSP servers e formatters
 ├── linux/
 │   └── desktop/
-│       ├── arch/         # Arch Linux / Manjaro
-│       └── debian/       # Debian
+│       ├── arch/         # Arch Linux (Quebrado em scripts modulares: setup, softwares, tools, editors, servers)
+│       └── debian/       # Debian (Quebrado em scripts modulares: setup, softwares, tools, editors)
 └── windows/
     ├── config/           # Configurações do Windows
     ├── msys2/            # Ambiente MSYS2
@@ -83,7 +83,7 @@ sh dev/python.sh  # Instalar Python
 
 Os scripts em `common/` **nunca** são executados diretamente pelo usuário. Eles são consumidos internamente (via `source` ou `.`) pelos scripts de cada sistema operacional.
 
-Isso elimina duplicação sem sacrificar a experiência do usuário. Por exemplo, a instalação de Nerd Fonts é idêntica entre FreeBSD e Linux — em vez de duplicar ~80 linhas, o script `common/fonts.sh` é sourced por cada wrapper específico do SO.
+Isso elimina duplicação sem sacrificar a experiência do usuário. Por exemplo, a instalação de Nerd Fonts é idêntica entre FreeBSD e Linux — em vez de duplicar ~80 linhas, o script `common/fonts.sh` é sourced por cada wrapper específico do SO. Scripts pequenos e redundantes, como configuração do `git`, foram inlined diretamente nos setups para evitar modularidade excessiva.
 
 ## Regras para Novos Scripts
 

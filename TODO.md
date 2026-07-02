@@ -8,10 +8,10 @@ Todas as ações aqui descritas são guiadas pela busca da nossa filosofia princ
 - ~~Remover chamadas manuais de `source ~/.vault/config.env` espalhadas pelos scripts.~~
 - ~~Como o Vault (e o Shell) agora são carregados automaticamente pelo ambiente, refatorar os códigos para que eles apenas consumam as variáveis, assumindo que o ecossistema já as proveu globalmente.~~
 
-## 2. Modularização do Bootstrap
+## 2. Modularização do Bootstrap ✅
 
-- Modularizar intensamente o diretório `/bootstrap`.
-- Quebrar os scripts monolíticos legados em componentes menores, reaproveitáveis e organizados, similar ao modelo focado de "uma coisa, um lugar".
+- ~~Modularizar intensamente o diretório `/bootstrap`.~~
+- ~~Quebrar os scripts monolíticos legados em componentes menores, reaproveitáveis e organizados, similar ao modelo focado de "uma coisa, um lugar".~~
 
 ## 3. Refatoração FreeBSD ✅
 
@@ -30,10 +30,10 @@ Todas as ações aqui descritas são guiadas pela busca da nossa filosofia princ
 - Focar no padrão visual já estabelecido de blocos delimitadores com múltiplos caracteres (`### ################################`) para separar as seções, mantendo o código conciso e legível.
 - Ainda tem script faltando isso, principalemte os .cmd, mas em geral já está quase pronto
 
-## 5. Auditoria de Softwares
+## 5. Auditoria de Softwares ✅
 
-- Limpar comandos redundantes.
-- Remover pacotes e softwares desnecessários que possam estar inflando os scripts de instalação e poluindo o sistema do host.
+- ~~Limpar comandos redundantes.~~
+- ~~Remover pacotes e softwares desnecessários que possam estar inflando os scripts de instalação e poluindo o sistema do host.~~
 
 ## 6. Evolução para Containers
 
