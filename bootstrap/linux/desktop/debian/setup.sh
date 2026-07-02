@@ -148,11 +148,6 @@ sudo apt install --yes "./gcm.deb"
 rm "./gcm.deb"
 
 ### ################################
-### Setup Git Config
-### ################################
-
-
-### ################################
 ### Setup LXC
 ### ################################
 
@@ -246,13 +241,6 @@ mkdir -p "${HOME}/.local/share/fonts"
 
 sudo apt install --yes ttf-mscorefonts-installer
 sudo apt install --yes fonts-crosextra-carlito
-
-### ################################
-### Nerd Fonts
-### ################################
-
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-. "${SCRIPT_DIR}/../../../common/fonts.sh"
 
 ### ################################################################################################################################
 

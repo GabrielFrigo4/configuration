@@ -183,13 +183,6 @@ wget -O gcm.deb "https://github.com/git-ecosystem/git-credential-manager/release
 sudo apt install --yes "./gcm.deb"
 rm "./gcm.deb"
 
-### ################################
-### Setup Git Config
-### ################################
-
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-. "${SCRIPT_DIR}/../../common/tools.sh"
-
 ### ################################################################################################################################
 
 ### ################################
@@ -199,12 +192,6 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 sudo apt install --yes mg
 sudo apt install --yes micro
 sudo apt install --yes vim
-
-### ################################
-### Setup Editor Configs
-### ################################
-
-. "${SCRIPT_DIR}/../../common/editors.sh"
 
 ### ################################
 ### Installing Bash

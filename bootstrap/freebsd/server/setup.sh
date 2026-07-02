@@ -77,9 +77,6 @@ sudo pkg install --yes git
 sudo pkg install --yes git-credential-oauth
 sudo pkg install --yes gh
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-. "${SCRIPT_DIR}/../../common/tools.sh"
-
 ### ################################
 ### Setup Ports
 ### ################################
