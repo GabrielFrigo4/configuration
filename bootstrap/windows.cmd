@@ -30,6 +30,7 @@ winget install ZedIndustries.Zed
 winget install VSCodium.VSCodium
 winget install Google.Antigravity
 winget install Google.AntigravityIDE
+winget install Google.AntigravityCLI
 winget install dnSpyEx.dnSpy
 winget install x64dbg.x64dbg
 winget install Hex-Rays.IDA.Free

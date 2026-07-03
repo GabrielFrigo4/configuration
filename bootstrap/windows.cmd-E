@@ -32,6 +32,7 @@ winget install ZedIndustries.Zed
 winget install VSCodium.VSCodium
 winget install Google.Antigravity
 winget install Google.AntigravityIDE
+winget install Google.AntigravityCLI
 rem debugger
 winget install dnSpyEx.dnSpy
 winget install x64dbg.x64dbg
