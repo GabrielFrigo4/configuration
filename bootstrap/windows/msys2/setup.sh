@@ -15,18 +15,7 @@ EOF
 ### ################################
 
 chmod 0600 "${FRIGO_SERVER_KEY}"
-cat << 'EOF' | tee "/usr/local/bin/frigo-server" > "/dev/null"
-#!/bin/sh
-ssh -i "${FRIGO_SERVER_KEY}" "ubuntu@${FRIGO_SERVER_IP}"
-EOF
-chmod +x "/usr/local/bin/frigo-server"
-
 chmod 0600 "${ORBS_SERVER_KEY}"
-cat << 'EOF' | tee "/usr/local/bin/orbs-server" > "/dev/null"
-#!/bin/sh
-ssh -i "${ORBS_SERVER_KEY}" "ubuntu@${ORBS_SERVER_IP}"
-EOF
-chmod +x "/usr/local/bin/orbs-server"
 
 ### ################################################################################################################################
 
