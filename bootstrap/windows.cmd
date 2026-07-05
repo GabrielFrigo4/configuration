@@ -85,6 +85,7 @@ winget install JosephFinney.Text-Grab
 winget install Microsoft.err
 winget install Microsoft.Git
 winget install Microsoft.Edit
+winget install Microsoft.Coreutils
 winget install Microsoft.PowerShell
 winget install Microsoft.VisualStudioCode
 winget install Microsoft.VisualStudio.2022.Community
