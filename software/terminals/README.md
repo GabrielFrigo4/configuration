@@ -4,14 +4,14 @@ Perfis e configurações de terminais e shells.
 
 ## Estrutura
 
-| Terminal             | Plataforma  | Arquivos                                                               |
-| :------------------- | :---------- | :--------------------------------------------------------------------- |
-| **Windows Terminal** | Windows     | `settings.json`                                                        |
-| **Nushell**          | Windows     | `config.nu`, `env.nu`, `nushell.nu`                                    |
-| **CMD** (Clink)      | Windows     | `profile.cmd`, `profile.lua`, `setup-profile.reg`                      |
-| **PowerShell**       | Windows     | `profile.ps1`, `Microsoft.PowerShell_profile.ps1`                      |
-| **Konsole**          | Linux (KDE) | `Bash.profile`, `Zsh.profile`, `Nushell.profile`, `PowerShell.profile` |
-| **Konsole (FreeBSD)**| FreeBSD     | `freebsd/Shell.profile`, `freebsd/Bash.profile`, `freebsd/Zsh.profile` |
+| Terminal              | Plataforma  | Arquivos                                                               |
+| :-------------------- | :---------- | :--------------------------------------------------------------------- |
+| **Windows Terminal**  | Windows     | `settings.json`                                                        |
+| **Nushell**           | Windows     | `config.nu`, `env.nu`, `nushell.nu`                                    |
+| **CMD** (Clink)       | Windows     | `profile.cmd`, `profile.lua`, `setup-profile.reg`                      |
+| **PowerShell**        | Windows     | `profile.ps1`, `Microsoft.PowerShell_profile.ps1`                      |
+| **Konsole**           | Linux (KDE) | `Bash.profile`, `Zsh.profile`, `Nushell.profile`, `PowerShell.profile` |
+| **Konsole (FreeBSD)** | FreeBSD     | `freebsd/Shell.profile`, `freebsd/Bash.profile`, `freebsd/Zsh.profile` |
 
 ## Instalação
 
