@@ -94,6 +94,11 @@
 	"[dockerfile]": { "editor.defaultFormatter": "ms-azuretools.vscode-containers" },
 
 	// ==========================================
+	// LSP (LANGUAGE SERVERS)
+	// ==========================================
+	"python.languageServer": "Pylance",
+
+	// ==========================================
 	// FERRAMENTAS
 	// ==========================================
 	"C_Cpp.intelliSenseEngine": "disabled",

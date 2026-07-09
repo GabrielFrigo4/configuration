@@ -80,8 +80,8 @@
 	// ==========================================
 	// LINGUAGENS
 	// ==========================================
-	"[c]": { "editor.defaultFormatter": "xaver.clang-format" },
-	"[cpp]": { "editor.defaultFormatter": "xaver.clang-format" },
+	"[c]": { "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd" },
+	"[cpp]": { "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd" },
 	"[go]": { "editor.defaultFormatter": "golang.go" },
 	"[python]": { "editor.defaultFormatter": "ms-python.autopep8" },
 	"[lua]": { "editor.defaultFormatter": "sumneko.lua" },
@@ -92,6 +92,11 @@
 	"[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
 	"[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
 	"[dockerfile]": { "editor.defaultFormatter": "ms-azuretools.vscode-containers" },
+
+	// ==========================================
+	// LSP (LANGUAGE SERVERS)
+	// ==========================================
+	"python.languageServer": "Pylance",
 
 	// ==========================================
 	// FERRAMENTAS
