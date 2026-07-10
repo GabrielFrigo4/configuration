@@ -88,8 +88,8 @@ winget install Microsoft.Edit
 winget install Microsoft.Coreutils
 winget install Microsoft.PowerShell
 winget install Microsoft.VisualStudioCode
-winget install Microsoft.VisualStudio.2022.Community
-winget install Microsoft.VisualStudio.2022.BuildTools
+winget install Microsoft.VisualStudio.Community
+winget install Microsoft.VisualStudio.BuildTools
 winget install Microsoft.Sysinternals.TCPView
 winget install Microsoft.MSIXPackagingTool
 winget install Microsoft.WindowsTerminal
@@ -134,8 +134,8 @@ rem ################################
 winget pin add MSYS2.MSYS2
 winget pin add Nvidia.CUDA
 winget pin add Python.Python.3.14
-winget pin add Microsoft.VisualStudio.2022.Community
-winget pin add Microsoft.VisualStudio.2022.BuildTools
+winget pin add Microsoft.VisualStudio.Community
+winget pin add Microsoft.VisualStudio.BuildTools
 winget pin add ZedIndustries.Zed
 
 winget pin add Logitech.GHUB
