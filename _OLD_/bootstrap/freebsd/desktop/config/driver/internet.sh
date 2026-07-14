@@ -39,6 +39,11 @@ network={
     ssid="GabrielF"
     psk="Escoteiro12"
 }
+
+network={
+    ssid="TOCA"
+    psk="tocadoscoelhos"
+}
 EOF
 
 # Set Permissions
