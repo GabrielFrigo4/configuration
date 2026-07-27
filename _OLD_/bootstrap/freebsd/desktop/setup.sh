@@ -80,6 +80,8 @@ sudo pkg install --yes git
 sudo pkg install --yes git-credential-oauth
 sudo pkg install --yes gh
 
+sudo pkg install --yes got
+
 ### ################################
 ### Setup Ports
 ### ################################
