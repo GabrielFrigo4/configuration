@@ -240,4 +240,6 @@ sudo pkg install --yes gimp
 
 sudo pkg install --yes arianna
 
+sudo pkg install --yes octopkg
+
 ### ################################################################################################################################
