@@ -30,20 +30,9 @@ sysrc background_dhclient="YES"
 
 # Setup WPA Supplicant
 cat << 'EOF' | tee "/etc/wpa_supplicant.conf" > "/dev/null"
-network={
-    ssid="LeT Local"
-    psk="84658465Net"
-}
-
-network={
-    ssid="GabrielF"
-    psk="Escoteiro12"
-}
-
-network={
-    ssid="TOCA"
-    psk="tocadoscoelhos"
-}
+ctrl_interface=/var/run/wpa_supplicant
+ctrl_interface_group=wheel
+update_config=1
 EOF
 
 # Set Permissions
