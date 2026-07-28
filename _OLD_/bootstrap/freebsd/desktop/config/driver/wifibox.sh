@@ -40,8 +40,8 @@ echo "Placa PCI detectada: ${PCI_RAW} (Endereço: ${PCI_ADDR})"
 # Block native FreeBSD driver if active
 PCI_DRIVER="$(echo "${PCI_RAW}" | awk -F'@' '{print $1}')"
 if [ -n "${PCI_DRIVER}" ] && [ "${PCI_DRIVER}" != "none" ]; then
-    sysrc devmatch_enable="YES" > /dev/null
-    sysrc devmatch_blocklist+="if_${PCI_DRIVER}" > /dev/null
+    sysrc devmatch_enable="YES" > "/dev/null"
+    sysrc devmatch_blocklist+="if_${PCI_DRIVER}" > "/dev/null"
 fi
 
 # Configure bhyve.conf for Wifibox
@@ -63,6 +63,11 @@ sysrc -f /boot/loader.conf vmm_load="YES" > "/dev/null"
 sysrc -f /boot/loader.conf pptdevs="${PCI_ADDR}" > "/dev/null"
 
 # Configure rc.conf
+sysrc -x ifconfig_wlan0 > "/dev/null" 2>&1 || true
+sysrc -x background_dhclient > "/dev/null" 2>&1 || true
+if [ -n "${PCI_DRIVER}" ] && [ "${PCI_DRIVER}" != "none" ]; then
+    sysrc -x wlans_${PCI_DRIVER} > "/dev/null" 2>&1 || true
+fi
 sysrc wifibox_enable="YES" > "/dev/null"
 sysrc ifconfig_wifibox0="SYNCDHCP" > "/dev/null"
 sysrc background_dhclient_wifibox0="YES" > "/dev/null"

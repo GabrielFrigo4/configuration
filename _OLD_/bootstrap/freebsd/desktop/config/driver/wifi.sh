@@ -24,6 +24,12 @@ echo "Placa detectada: ${WLAN_DEV}"
 WLAN_INT="wlan0"
 
 # Configure rc.conf
+sysrc -x wifibox_enable > "/dev/null" 2>&1 || true
+sysrc -x ifconfig_wifibox0 > "/dev/null" 2>&1 || true
+sysrc -x background_dhclient_wifibox0 > "/dev/null" 2>&1 || true
+sysrc -x devmatch_enable > "/dev/null" 2>&1 || true
+sysrc -x devmatch_blocklist > "/dev/null" 2>&1 || true
+sysrc -f /boot/loader.conf -x pptdevs > "/dev/null" 2>&1 || true
 sysrc wlans_${WLAN_DEV}="${WLAN_INT}"
 sysrc ifconfig_${WLAN_INT}="WPA DHCP"
 sysrc background_dhclient="YES"

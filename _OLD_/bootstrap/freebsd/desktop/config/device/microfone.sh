@@ -8,7 +8,7 @@ echo "  Iniciando Microfone Virtual (Android -> FreeBSD)    "
 echo "======================================================"
 
 # 1. Verifica a interface USB
-if ! ifconfig ue0 > /dev/null 2>&1; then
+if ! ifconfig ue0 > "/dev/null" 2>&1; then
     echo "[ERRO] Interface ue0 não encontrada!"
     exit 1
 fi
@@ -23,15 +23,15 @@ if [ -z "${FREEBSD_IP}" ]; then
 fi
 
 echo "[1/3] Limpando rotas virtuais antigas..."
-pactl unload-module module-virtual-source > /dev/null 2>&1 || true
-pactl unload-module module-null-sink > /dev/null 2>&1 || true
+pactl unload-module module-virtual-source > "/dev/null" 2>&1 || true
+pactl unload-module module-null-sink > "/dev/null" 2>&1 || true
 
 echo "[2/3] Criando Microfone Virtual..."
 # Cria um "ralo" de áudio invisível
-pactl load-module module-null-sink sink_name=AndroidMic sink_properties=device.description="Microfone_Virtual" > /dev/null
+pactl load-module module-null-sink sink_name=AndroidMic sink_properties=device.description="Microfone_Virtual" > "/dev/null"
 
 # Cria o microfone a partir do ralo
-pactl load-module module-virtual-source source_name=Virtual_Mic master=AndroidMic.monitor > /dev/null
+pactl load-module module-virtual-source source_name=Virtual_Mic master=AndroidMic.monitor > "/dev/null"
 
 echo "======================================================"
 echo " TUDO PRONTO! "
