@@ -12,8 +12,7 @@ else
 	SUDO=""
 fi
 
-${SUDO} pkg install --yes arianna
-${SUDO} pkg install --yes w3m lynx
+${SUDO} pkg install --yes arianna w3m lynx
 
 mkdir -p "${HOME}/.w3m"
 touch "${HOME}/.w3m/history"

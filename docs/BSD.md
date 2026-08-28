@@ -33,13 +33,13 @@ Não instalamos dependências de desenvolvimento no host FreeBSD. Em vez disso:
 
 Para executar código que exige um kernel Linux ou para virtualizar outras instâncias, tiramos proveito do **bhyve**, o hypervisor nativo do FreeBSD. Em conjunto com ZVOLs (discos virtuais baseados em ZFS), criamos máquinas virtuais de altíssima performance para complementar nosso ambiente _Clean Host_. Veja a documentação de [Hypervisors](HYPERVISORS.md).
 
-### 4. Konsole Profiles no FreeBSD
+### 4. Perfis Unificados do Konsole (Linux & FreeBSD)
 
-Os perfis do Konsole no FreeBSD diferenciam-se dos perfis Linux presentes em `software/terminals/konsole/`:
+Os perfis do Konsole em `software/terminals/konsole/` são **100% compartilhados** entre Linux e FreeBSD:
 
-- **Caminhos dos Shells:** No FreeBSD, bash e zsh residem em `/usr/local/bin/`, e não em `/bin/`. Portanto, os perfis apontam para `Command=/usr/local/bin/bash` e `Command=/usr/local/bin/zsh`.
-- **Shell.profile (Exclusivo do FreeBSD):** Um perfil adicional que configura `Environment=SHELL_INIT=1,SHELL_TARGET=/bin/sh` e `Command=/bin/sh`, utilizado pelo ecossistema Shell para inicialização controlada.
-- Os perfis para FreeBSD ficam salvos em `software/terminals/konsole/freebsd/` e podem ser linkados para `~/.local/share/konsole/`.
+- **Resolução Dinâmica via `/usr/bin/env`:** Os perfis apontam para `Command=/usr/bin/env bash`, `Command=/usr/bin/env zsh` e `Command=/usr/bin/env sh`. Isso resolve dinamicamente o executável tanto em `/bin/` (Linux) quanto em `/usr/local/bin/` (FreeBSD), eliminando duplicações de configuração.
+- **Shell.profile:** Configura `Environment=SHELL_INIT=1` e `Command=/usr/bin/env sh`, utilizado pelo ecossistema Shell para inicialização controlada e leve.
+- **Instalação:** Basta linkar os perfis de `software/terminals/konsole/` para `~/.local/share/konsole/`.
 
 ### 5. Hardware e Periféricos no FreeBSD
 
@@ -48,10 +48,9 @@ Os perfis do Konsole no FreeBSD diferenciam-se dos perfis Linux presentes em `so
 
 ### 6. Catálogo de Receitas Modulares do FreeBSD
 
-Seguindo o modelo Cookbook, cada funcionalidade do FreeBSD é provisionada por receitas isoladas em [`bootstrap/freebsd/`](../bootstrap/README.md#freebsd-kde-plasma--servidor):
-- **Base & Privilégios:** `system/system.sh` e `system/doas.sh` (permissões `0440`).
-- **Árvore de Ports:** `ports/ports.sh` (sincronização via Git na branch trimestral).
-- **Jails & Virtualização:** `containers/jails.sh` (Bastille) e `emulation/linuxlator.sh`.
-- **Desktop & Leitura:** `desktop/kde.sh` (KDE Plasma) e `apps/epub.sh` (leitor Arianna).
-- **Segurança:** `security/wireshark.sh` (captura BPF sem root).
-- **Dispositivos:** `devices/audio.sh` (roteamento para Android via RTP) e `devices/filesystem.sh` (FUSE).
+Seguindo a simetria em 4 pilares do repositório, as receitas do FreeBSD residem em [`bootstrap/freebsd/`](../bootstrap/freebsd/README.md):
+
+- **[`common/`](../bootstrap/freebsd/common/README.md):** `system/doas.sh` (permissões `0440`), `system/sysctl.sh` e `tools/cli.sh`.
+- **[`container/`](../bootstrap/freebsd/container/README.md):** `jails.sh` (Jails nativas), `bastille.sh` (BastilleBSD) e `podman.sh` (Podman OCI nativo).
+- **[`desktop/`](../bootstrap/freebsd/desktop/README.md):** `gui/kde.sh` (KDE Plasma 6), `apps/epub.sh`, `ports/ports.sh`, `emulation/linuxlator.sh`, `security/wireshark.sh` e `devices/audio.sh`.
+- **[`server/`](../bootstrap/freebsd/server/README.md):** `system/guest.sh` (QEMU Guest Agent para VM KVM) e `connect.sh` (conexão dinâmica SSH/SCP).

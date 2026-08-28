@@ -1,73 +1,37 @@
-# Terminals
+# 🖥️ Terminals (Perfis Gráficos & Configurações de Shell)
 
-Perfis e configurações de terminais e shells.
+> Perfis de terminal e dotfiles de ambiente para Konsole, Windows Terminal, PowerShell, Nushell e CMD.
 
-## Estrutura
+---
 
-| Terminal              | Plataforma  | Arquivos                                                               |
-| :-------------------- | :---------- | :--------------------------------------------------------------------- |
-| **Windows Terminal**  | Windows     | `settings.json`                                                        |
-| **Nushell**           | Windows     | `config.nu`, `env.nu`, `nushell.nu`                                    |
-| **CMD** (Clink)       | Windows     | `profile.cmd`, `profile.lua`, `setup-profile.reg`                      |
-| **PowerShell**        | Windows     | `profile.ps1`, `Microsoft.PowerShell_profile.ps1`                      |
-| **Konsole**           | Linux (KDE) | `Bash.profile`, `Zsh.profile`, `Nushell.profile`, `PowerShell.profile` |
-| **Konsole (FreeBSD)** | FreeBSD     | `freebsd/Shell.profile`, `freebsd/Bash.profile`, `freebsd/Zsh.profile` |
+## 📂 Catálogo de Configurações
 
-## Instalação
+| Terminal / Shell     | Plataforma      | Arquivos Declarativos                                                                                                      | Destino                                                           |
+| :------------------- | :-------------- | :------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------- |
+| **Konsole (KDE)**    | Linux & FreeBSD | [`Bash.profile`](konsole/Bash.profile), [`Zsh.profile`](konsole/Zsh.profile), [`Shell.profile`](konsole/Shell.profile)     | `~/.local/share/konsole/`                                         |
+| **Windows Terminal** | Windows         | [`settings.json`](windows-terminal/settings.json)                                                                          | `%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_*\LocalState\` |
+| **Nushell**          | Multiplataforma | [`config.nu`](nushell/config.nu), [`env.nu`](nushell/env.nu), [`nushell.nu`](nushell/nushell.nu)                           | `~/.config/nushell/` ou `%APPDATA%\nushell\`                      |
+| **PowerShell**       | Windows / Multi | [`profile.ps1`](powershell/profile.ps1), [`Microsoft.PowerShell_profile.ps1`](powershell/Microsoft.PowerShell_profile.ps1) | `$HOME\Documents\PowerShell\`                                     |
+| **CMD (Clink)**      | Windows         | [`profile.cmd`](cmd/profile.cmd), [`profile.lua`](cmd/profile.lua), [`setup-profile.reg`](cmd/setup-profile.reg)           | `%USERPROFILE%\` e `%PROGRAMFILES(x86)%\clink\`                   |
 
-### Windows Terminal
+---
 
-```
-%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
-```
+## 🎯 Destaques de Arquitetura
 
-### Nushell
+### 1. Konsole Unificado (Linux & FreeBSD via `/usr/bin/env`)
 
-```
-%APPDATA%\nushell\config.nu
-%APPDATA%\nushell\env.nu
-```
+Os perfis do Konsole utilizam `/usr/bin/env` para resolução dinâmica do caminho dos shells:
 
-O `nushell.nu` é o perfil de ambiente (PATH, variáveis, oh-my-posh) e deve ser importado pelo `config.nu`.
+- `Command=/usr/bin/env bash`
+- `Command=/usr/bin/env zsh`
+- `Command=/usr/bin/env sh`
 
-### CMD (Clink)
+Isso elimina a necessidade de perfis separados para Linux (`/bin/`) e FreeBSD (`/usr/local/bin/`), garantindo **100% de reuso e portabilidade**. Todos os perfis utilizam a fonte **JetBrainsMono Nerd Font 12**, tema **Breeze** e cursor piscante.
 
-```
-%USERPROFILE%\profile.cmd
-%PROGRAMFILES(x86)%\clink\profile.lua
-```
+### 2. Windows Terminal
 
-O `setup-profile.reg` registra o `profile.cmd` como autorun do CMD.
+Configura esquema de cores e inicialização integrada com PowerShell 7, MSYS2 UCRT64 e distros WSL2.
 
-### PowerShell
+### 3. CMD com Clink & Lua
 
-```powershell
-# Profile principal (lógica e aliases)
-$PSHOME\profile.ps1
-# ou
-$HOME\Documents\PowerShell\profile.ps1
-
-# Profile visual (oh-my-posh, Terminal-Icons)
-$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
-```
-
-### Konsole (KDE)
-
-```
-~/.local/share/konsole/Bash.profile
-~/.local/share/konsole/Zsh.profile
-~/.local/share/konsole/Nushell.profile
-~/.local/share/konsole/PowerShell.profile
-```
-
-Todos os perfis usam **JetBrainsMono Nerd Font** tamanho 12, tema **Breath** e cursor piscante.
-
-### Konsole (FreeBSD)
-
-```
-~/.local/share/konsole/Shell.profile
-~/.local/share/konsole/Bash.profile
-~/.local/share/konsole/Zsh.profile
-```
-
-Os profiles do FreeBSD diferem dos do Linux: usam o tema **Breeze** e os caminhos dos shells são `/usr/local/bin/bash` e `/usr/local/bin/zsh` (instalados via `pkg`). O `Shell.profile` é exclusivo do FreeBSD para inicialização controlada pelo ecossistema Shell.
+Injeta suporte a atalhos de readline Unix, histórico persistente e script Lua de completação inteligente no prompt tradicional do Windows.

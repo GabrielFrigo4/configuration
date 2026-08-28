@@ -9,9 +9,9 @@ Este documento descreve a filosofia, a estrutura modular e a padronização das 
 O `Configuration` adota o modelo de **Livro de Receitas (Cookbook)**:
 
 1. **Zero Dependência de Clone:** Diferente do `Vault` ou do `Shell`, o usuário **não precisa clonar** este repositório para utilizá-lo. Ele é consumido diretamente via **GitHub**:
-   - Navegando e copiando/colando trechos específicos;
-   - Baixando arquivos declarativos puros (`.json`, `.toml`, `.yaml`);
-   - Executando receitas isoladas pontualmente via terminal.
+    - Navegando e copiando/colando trechos específicos;
+    - Baixando arquivos declarativos puros (`.json`, `.toml`, `.yaml`);
+    - Executando receitas isoladas pontualmente via terminal.
 2. **Modularidade Radical (Sem Monólitos):** Nenhum script deve tentar instalar 50 ferramentas diferentes de uma só vez. Cada receita é atômica, autoexplicativa e executa uma única função com excelência.
 3. **Clean Host:** Compiladores de projeto, bancos de dados e runtimes pesados pertencem a containers (Docker, Incus, FreeBSD Jails). O host só recebe os drivers, a interface gráfica (GNOME no Fedora, KDE no FreeBSD) e ferramentas essenciais de análise/sistema.
 

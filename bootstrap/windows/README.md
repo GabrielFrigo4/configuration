@@ -1,28 +1,29 @@
-# 🪟 Windows — Ferramentas Nativas, WSL & MSYS2
+# 🪟 Windows — Ferramentas Nativas & Subsistema MSYS2
 
-> Diretório raiz de provisionamento para o sistema operacional Windows, organizado por contexto operacional.
+> Diretório raiz de provisionamento para o sistema operacional Windows, organizado por ambiente de execução.
 
 ---
 
 ## 🎯 Finalidade
 
-Reúne o ferramental de provisionamento para Windows, organizado por contexto de uso:
-- **`desktop/`**: Ferramentas nativas do Windows (pacotes, engenharia reversa, editores, temas, fontes e módulos).
-- **`wsl/`**: Distribuições Linux (Arch Linux e Debian) executando via Windows Subsystem for Linux (WSL2).
-- **`msys2/`**: Subsistema UNIX nativo UCRT64 (toolchains GCC, Clang, linguagens e bibliotecas sem virtualização).
+Reúne o ferramental de provisionamento para Windows, dividido em dois ambientes essenciais:
+
+- **`native/`**: Ferramentas nativas do Windows (gerenciadores de pacotes Winget/Scoop/Choco, suite de engenharia reversa, editores, temas e módulos).
+- **`msys2/`**: Subsistema UNIX nativo UCRT64 (toolchains GCC, Clang/LLVM, linguagens e bibliotecas sem virtualização).
+
+> ℹ️ **Ambiente WSL2:** Como o WSL2 executa um kernel Linux real, as receitas para distribuições WSL residem em [`../linux/wsl/`](../linux/wsl/README.md).
 
 ---
 
 ## 📂 Contextos Operacionais
 
-| Contexto | Tipo | Descrição |
-| :--- | :--- | :--- |
-| [`desktop/`](desktop/README.md) | Ferramentas Nativas | Pacotes via Winget/Scoop, suite de engenharia reversa, temas e módulos |
-| [`wsl/`](wsl/README.md) | Subsistema WSL2 | Instâncias Arch Linux e Debian provisionadas de forma atômica |
-| [`msys2/`](msys2/README.md) | Subsistema UCRT64 | Toolchains de compilação GNU/LLVM e bibliotecas nativas de desenvolvimento |
+| Contexto                          | Tipo                | Descrição                                                                     |
+| :-------------------------------- | :------------------ | :---------------------------------------------------------------------------- |
+| **[`native/`](native/README.md)** | Ferramentas Nativas | Pacotes via Winget/Scoop, suite de engenharia reversa, temas e módulos        |
+| **[`msys2/`](msys2/README.md)**   | Subsistema UCRT64   | 7 receitas temáticas de compilação GNU/LLVM, linguagens e bibliotecas nativas |
 
 ---
 
 ## 🚀 Como Navegar
 
-Para acessar as ferramentas nativas de desenvolvimento e segurança no Windows, acesse [`desktop/`](desktop/README.md).
+Para acessar as ferramentas nativas de desenvolvimento e segurança no Windows, acesse [`native/`](native/README.md).

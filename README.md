@@ -6,29 +6,30 @@
 
 ### 🖥️ Sistemas Operacionais Suportados
 
-![Linux](https://img.shields.io/badge/🐧_Linux_(Fedora_/_Arch_/_Debian)-Supported-blue)
+![Linux](<https://img.shields.io/badge/🐧_Linux_(Fedora_/_Arch_/_Debian)-Supported-blue>)
 ![FreeBSD](https://img.shields.io/badge/😈_FreeBSD-Supported-red)
 ![Windows](https://img.shields.io/badge/🪟_Windows-Supported-purple)
 
 ### 🎨 Interfaces Gráficas Nativas (Host)
 
-![GNOME](https://img.shields.io/badge/🔵_GNOME_(Fedora)-Wayland-blue)
-![KDE Plasma](https://img.shields.io/badge/🟢_KDE_Plasma_(FreeBSD)-Wayland-green)
+![GNOME](<https://img.shields.io/badge/🔵_GNOME_(Fedora)-Wayland-blue>)
+![KDE Plasma](<https://img.shields.io/badge/🟢_KDE_Plasma_(FreeBSD)-Wayland-green>)
 
 ---
 
 ## 🧠 Filosofia e Princípios de Engenharia
 
-Este repositório não é um amontoado caótico de dotfiles, mas a fundação arquitetural de uma estação de trabalho estrita e modular guiada pelos **17 Princípios UNIX** (*The Art of UNIX Programming*, 2003) e pelas práticas de **Clean Code**:
+Este repositório não é um amontoado caótico de dotfiles, mas a fundação arquitetural de uma estação de trabalho estrita e modular guiada pelos **17 Princípios UNIX** (_The Art of UNIX Programming_, 2003) e pelas práticas de **Clean Code**:
 
-1. **"Clean Host" (Isolamento Extremo):** O sistema operacional nativo (o *host*) permanece o mais puro e leve possível. Ele provê apenas a interface gráfica (Wayland nativo via GNOME no Fedora ou KDE Plasma no FreeBSD), drivers de hardware, navegadores, editores de código e a camada de virtualização/hypervisor. Nenhum banco de dados ou ambiente de desenvolvimento de projeto polui o host.
+1. **"Clean Host" (Isolamento Extremo):** O sistema operacional nativo (o _host_) permanece o mais puro e leve possível. Ele provê apenas a interface gráfica (Wayland nativo via GNOME no Fedora ou KDE Plasma no FreeBSD), drivers de hardware, navegadores, editores de código e a camada de virtualização/hypervisor. Nenhum banco de dados ou ambiente de desenvolvimento de projeto polui o host.
 2. **Modularidade da Tríade ("Uma coisa, um lugar"):**
-   - **`Configuration`** (este repositório): Provisionamento estático do SO e dotfiles do host.
-   - **[Shell](https://github.com/GabrielFrigo4/Shell)** (público): Comportamento interativo dinâmico, prompts, aliases e funções do terminal.
-   - **[Vault](https://github.com/GabrielFrigo4/Vault)** (privado): Cofre seguro de chaves criptográficas, credenciais e variáveis sensíveis.
+    - **`Configuration`** (este repositório): Provisionamento estático do SO e dotfiles do host.
+    - **[Shell](https://github.com/GabrielFrigo4/Shell)** (público): Comportamento interativo dinâmico, prompts, aliases e funções do terminal.
+    - **[Vault](https://github.com/GabrielFrigo4/Vault)** (privado): Cofre seguro de chaves criptográficas, credenciais e variáveis sensíveis.
 3. **Reprodutibilidade com ZFS & Idempotência:** Adoção de **ZFS** como fundação para snapshots instantâneos e replicação rápida, aliada a scripts de bootstrap que podem ser executados repetidamente com segurança.
 
 > 📖 **Leituras Obrigatórias:**
+>
 > - [Princípios de Engenharia (PRINCIPLES.md)](PRINCIPLES.md) — Os 17 Princípios UNIX e Clean Code detalhados.
 > - [Filosofia do Ecossistema (docs/PHILOSOPHY.md)](docs/PHILOSOPHY.md)
 > - [Containers & Jails (docs/CONTAINERS.md)](docs/CONTAINERS.md)
@@ -38,17 +39,17 @@ Este repositório não é um amontoado caótico de dotfiles, mas a fundação ar
 
 ## 📂 Estrutura do Projeto
 
-- **[`bootstrap/`](bootstrap/README.md)** — Provisionamento e catálogo modular de receitas por SO e contexto:
-  - **`freebsd/`** — Workstation Desktop (KDE Plasma), Server KVM e Containers (Jails & Bastille).
-  - **`linux/`** — Workstations Desktop (Fedora, Arch Linux, Debian), Servidores Cloud e Containers (Incus).
-  - **`windows/`** — Desktop nativo (Winget, engenharia reversa), WSL2 e MSYS2 (UCRT64).
-  - **`common/`** — Receitas agnósticas compartilhadas entre sistemas operacionais.
-- **[`software/`](software/README.md)** — Configurações declarativas ("dotfiles") de softwares do host:
-  - **`editors/`** — Helix, Neovim, Vim, Emacs, VS Code, VSCodium, Zed e Antigravity.
-  - **`terminals/`** — Konsole (KDE), Windows Terminal, CMD (Clink), PowerShell e NuShell.
-  - **`tools/`** — Formatadores e linters globais (`.clang-format`, `.prettierrc`, `.stylua.toml`, `clangd.yaml`).
-  - **`vcs/`** — Configurações de controle de versão (Git e Got).
-- **[`scripts/`](scripts/README.md)** — Scripts utilitários de compilação local (build), conversão de arquivos e modificações de registro do Windows.
+- **[`bootstrap/`](bootstrap/README.md)** — **Provisionamento e Automação de Sistema (O "COMO"):** Catálogo modular de receitas (`.sh`, `.cmd` e `.ps1`) com privilégios de sistema para instalar pacotes, drivers, containers e serviços:
+    - **`freebsd/`** — Infraestrutura base (`common/`), Containers (Jails & Bastille), Workstation Desktop (KDE Plasma) e Server KVM.
+    - **`linux/`** — Infraestrutura base (`common/`), Containers (Incus & Podman), Workstations Desktop (Fedora, Arch, Debian), Servidores Cloud e WSL2 (`wsl/`).
+    - **`windows/`** — Ferramentas nativas (`native/`) e subsistema MSYS2 (`msys2/` UCRT64).
+    - **`common/`** — Receitas universais multiplataforma compartilhadas entre Linux, FreeBSD e Windows (fontes, linters, editores, vcs).
+- **[`software/`](software/README.md)** — **Dotfiles e Configurações Declarativas de Usuário (O "O QUÊ"):** Arquivos estáticos puros (`.json`, `.toml`, `.yaml`, `.profile`) no espaço do usuário (`$HOME`):
+    - **`editors/`** — Antigravity, VS Code, VSCodium, Zed, Emacs (`lite.el`) e Vim (`lite.vim`).
+    - **`terminals/`** — Konsole (KDE), Windows Terminal, CMD (Clink), PowerShell e NuShell.
+    - **`tools/`** — Formatadores e linters globais (`.clang-format`, `.prettierrc`, `.stylua.toml`, `clangd.yaml`).
+    - **`browsers/`** — Ajustes de navegadores no host (Firefox).
+- **[`scripts/`](scripts/README.md)** — Utilitários pontuais de compilação local (build), conversão de arquivos e modificações de registro do Windows.
 - **[`docs/`](docs/README.md)** — Documentação técnica abrangente da estação de trabalho.
 
 ---

@@ -1,41 +1,51 @@
 # 📖 Bootstrap & Catálogo de Receitas (Cookbook)
 
-Esta pasta é o **Livro de Receitas (Cookbook)** do sistema operacional. Diferente do [Vault](../../Vault) ou do [Shell](../../Shell), este repositório **não foi feito para ser clonado e acoplado ao seu sistema**, mas sim consumido diretamente pelo **GitHub** (via navegador, cópia e cola ou execução pontual).
+> Catálogo modular de receitas para provisionamento, instalação de pacotes e configuração do Sistema Operacional (Host, Containers, Servidores e WSL2).
 
-Não usamos scripts monolíticos que tentam instalar 50 coisas de uma vez. Cada arquivo aqui é uma **receita autônoma, modular e idempotente**, focada em um único software ou configuração.
+---
+
+## 🎯 A Fronteira: `bootstrap/` vs `software/`
+
+| Camada                                   | Papel Central                        | Tipo de Conteúdo                                                  | Escopo                                                                                                        |
+| :--------------------------------------- | :----------------------------------- | :---------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
+| **`bootstrap/`** _(esta pasta)_          | **O "COMO" (Provisionamento Ativo)** | Receitas de automação executáveis (`.sh`, `.cmd` e `.ps1`).       | Nível de sistema e máquina (`sudo`/`doas`, `dnf`, `apt`, `pkg`, `winget`, drivers, containers, fontes do SO). |
+| **[`software/`](../software/README.md)** | **O "O QUÊ" (Estado Declarativo)**   | Arquivos estáticos puros (`.json`, `.toml`, `.yaml`, `.profile`). | Espaço do usuário (`$HOME` / `~/.config`). Zero privilégios de sistema.                                       |
 
 ---
 
 ## 📂 Organização por Família de SO & Contexto
 
-A estrutura do `bootstrap` é dividida por sistema operacional e categorizada pelos contextos operacionais (`desktop`, `server`, `container`, `wsl`):
+A estrutura do `bootstrap` é dividida por sistema operacional e categorizada por contextos operacionais rasos:
 
 ### 😈 [FreeBSD](freebsd/README.md)
+
+- **[`common/`](freebsd/common/README.md):** Infraestrutura base universal (elevação `doas`, otimizações `/etc/sysctl.conf` e ferramentas CLI essenciais).
+- **[`container/`](freebsd/container/README.md):** Subsistema nativo de FreeBSD Jails, automação BastilleBSD e Podman nativo.
 - **[`desktop/`](freebsd/desktop/README.md):** Estação de trabalho com interface KDE Plasma 6 Wayland, aceleração de áudio, rede e ports.
-- **[`server/`](freebsd/server/README.md):** Máquina virtual servidora FreeBSD sob KVM/QEMU com QEMU Guest Agent e scripts de conexão.
-- **[`container/`](freebsd/container/README.md):** Subsistema nativo de FreeBSD Jails e automação BastilleBSD.
+- **[`server/`](freebsd/server/README.md):** Máquina virtual servidora FreeBSD sob KVM/QEMU com QEMU Guest Agent e ferramenta de conexão `connect.sh`.
 
 ---
 
 ### 🐧 [Linux](linux/README.md)
-- **[`desktop/`](linux/desktop/README.md):** Distribuições para estações de trabalho gráficas:
-  - [`fedora/`](linux/desktop/fedora/README.md): Estação de trabalho primária (GNOME Wayland).
-  - [`arch/`](linux/desktop/arch/README.md): Ambiente modular de experimentação e desenvolvimento avançado.
-  - [`debian/`](linux/desktop/debian/README.md): Estação clássica de estabilidade.
-- **[`server/`](linux/server/README.md):** Servidores remotos na Oracle Cloud (`oracle-frigo`, `oracle-orbs`).
-- **[`container/`](linux/container/README.md):** Containers de sistema via Incus e LXC.
+
+- **[`common/`](linux/common/README.md):** Infraestrutura base universal (Swap agnóstico, `doas` multi-distro, firewall inteligente, Flatpak, Wireshark e Antigravity).
+- **[`container/`](linux/container/README.md):** Subsistema de containers de sistema (Incus / LXC) e aplicação (Podman e Docker).
+- **[`desktop/`](linux/desktop/README.md):** Distribuições para estações de trabalho gráficas ([Fedora](linux/desktop/fedora/README.md), [Arch Linux](linux/desktop/arch/README.md), [Debian](linux/desktop/debian/README.md)).
+- **[`server/`](linux/server/README.md):** Servidores remotos na nuvem (`oracle-frigo`, `oracle-orbs`, Magalu Cloud / Rocky Linux) e ferramenta `connect.sh`.
+- **[`wsl/`](linux/wsl/README.md):** Distribuições Linux (Arch Linux e Debian) executando via WSL2.
 
 ---
 
 ### 🪟 [Windows](windows/README.md)
-- **[`desktop/`](windows/desktop/README.md):** Ferramentas nativas do Windows (pacotes Winget/Scoop, engenharia reversa, editores e módulos).
-- **[`wsl/`](windows/wsl/README.md):** Distribuições Linux (Arch Linux e Debian) executando via WSL2.
-- **[`msys2/`](windows/msys2/README.md):** Subsistema UNIX nativo UCRT64 (toolchains GCC, Clang e bibliotecas sem virtualização).
+
+- **[`native/`](windows/native/README.md):** Ferramentas nativas do Windows (pacotes Winget/Scoop/Choco, suite de engenharia reversa, editores e módulos).
+- **[`msys2/`](windows/msys2/README.md):** Subsistema UNIX nativo UCRT64 (7 receitas temáticas de toolchains GCC, Clang e bibliotecas sem virtualização).
 
 ---
 
-### 🌐 [Common](common/README.md)
-- Receitas multiplataforma agnósticas compartilhadas entre Linux, FreeBSD e Windows (editores, fontes e linters).
+### 🌐 [Common (Multiplataforma POSIX)](common/README.md)
+
+- Receitas universais em POSIX Shell (`.sh`) compartilhadas entre Linux, FreeBSD, macOS, WSL2 e MSYS2 (fontes, perfis de editores, extensões, linters e vcs).
 
 ---
 

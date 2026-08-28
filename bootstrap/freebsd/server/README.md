@@ -6,21 +6,29 @@
 
 ## 🎯 Finalidade
 
-Organiza a configuração da VM servidora FreeBSD: agente de integração QEMU, privilégios `doas` (`0440`), gerenciamento de Jails com Bastille e ferramentas de linha de comando.
+Organiza a configuração da VM servidora FreeBSD: agente de integração QEMU para KVM, console de alta resolução e ferramenta de conexão dinâmica.
+
+> ℹ️ **Infraestrutura Base & CLI:** As receitas universais de elevação `doas`, parâmetros de kernel e ferramentas de terminal residem em [`../common/`](../common/README.md).
 
 ---
 
-## 📂 Catálogo de Receitas
+## 📂 Catálogo de Arquivos
 
-| Categoria | Receita | Descrição |
-| :--- | :--- | :--- |
-| **`system/`** | [`system/guest.sh`](system/guest.sh) | QEMU Guest Agent, doas, sudoers e console Spleen |
-| **`tools/`** | [`tools/base.sh`](tools/base.sh) | Shells (Bash, Zsh), Git, GitHub CLI e Mandoc |
-| **`connect/`** | [`connect/ssh-freebsd-server.sh`](connect/ssh-freebsd-server.sh) | Conexão SSH via detecção dinâmica de IP do `virsh` |
-| **`connect/`** | [`connect/scp-freebsd-server.sh`](connect/scp-freebsd-server.sh) | Cópia SCP via detecção dinâmica de IP do `virsh` |
+| Arquivo                                  | Tipo       | Descrição                                                                 |
+| :--------------------------------------- | :--------- | :------------------------------------------------------------------------ |
+| **[`system/guest.sh`](system/guest.sh)** | Receita    | QEMU Guest Agent e console de alta resolução Spleen                       |
+| **[`connect.sh`](connect.sh)**           | Ferramenta | Conexão SSH e cópia SCP automática via detecção dinâmica de IP do `virsh` |
 
 ---
 
 ## 🚀 Como Usar via GitHub (Zero-Clone)
 
-Inicie a VM FreeBSD (`freebsd-start`) e conecte-se com `ssh-freebsd-server.sh`. Copie e execute as receitas desejadas no terminal da VM.
+Inicie a VM FreeBSD e conecte-se com `connect.sh`:
+
+```sh
+# Conectar via SSH
+sh bootstrap/freebsd/server/connect.sh
+
+# Copiar arquivos via SCP
+sh bootstrap/freebsd/server/connect.sh scp ./meu_arquivo freebsd@vm:/tmp/
+```

@@ -16,7 +16,6 @@ TARGET_USER="${SUDO_USER:-$(id -un)}"
 
 ${SUDO} dnf install -y wireshark wireshark-cli
 
-# Adiciona o usuário ao grupo wireshark para capturar sem precisar de root
 if getent group wireshark > "/dev/null" 2>&1; then
 	${SUDO} usermod -aG wireshark "${TARGET_USER}"
 fi

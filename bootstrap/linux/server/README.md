@@ -1,24 +1,27 @@
-# ☁️ Servidores Linux em Nuvem (Oracle Cloud)
+# ☁️ Servidores Linux em Nuvem (Oracle Cloud & VPS)
 
-> Provisionamento e scripts de conexão para servidores VPS na Oracle Cloud Infrastructure (OCI).
+> Provisionamento de aplicações e ferramenta de conexão para servidores VPS na nuvem (Oracle Cloud / Ubuntu / Debian / Rocky Linux).
 
 ---
 
 ## 🎯 Finalidade
 
-Reúne receitas atômicas para configurar instâncias remotas na nuvem (Oracle Cloud Free Tier / Ubuntu Server) e ferramentas de conveniência para transferência de arquivos (SCP) e acesso remoto (SSH) integradas ao [Vault](../../../../Vault).
+Reúne receitas atômicas para configurar aplicações em instâncias remotas na nuvem (`oracle-frigo`, `oracle-orbs`, Magalu Cloud) e a ferramenta unificada de conexão remota (SSH / SCP) integrada ao Vault.
+
+> ℹ️ **Infraestrutura Base Multi-Distro:** As receitas universais (Swap agnóstico, elevação `doas`, firewall inteligente e Podman) residem em [`../common/`](../common/README.md).
 
 ---
 
-## 📂 Catálogo de Servidores
+## 📂 Catálogo de Recursos & Servidores
 
-| Servidor | Tipo | Descrição |
-| :--- | :--- | :--- |
-| [`oracle-frigo/`](oracle-frigo/README.md) | Subdiretório | Servidor pessoal: Swap, Caddy, Resume, Game e conexão SSH/SCP |
-| [`oracle-orbs/`](oracle-orbs/README.md) | Subdiretório | Servidor comercial: Swap, Caddy, container Catalogo e conexão SSH/SCP |
+| Recurso / Servidor                            | Tipo               | Descrição                                                                            |
+| :-------------------------------------------- | :----------------- | :----------------------------------------------------------------------------------- |
+| **[`connect.sh`](connect.sh)**                | Ferramenta         | Conexão SSH unificada aos servidores (`sh connect.sh frigo` ou `sh connect.sh orbs`) |
+| **[`oracle-frigo/`](oracle-frigo/README.md)** | Servidor Pessoal   | Reverse proxy Caddy e serviços systemd (`resume`, `game`)                            |
+| **[`oracle-orbs/`](oracle-orbs/README.md)**   | Servidor Comercial | Reverse proxy Caddy e serviço systemd em container Podman (`catalogo`)               |
 
 ---
 
 ## 🔒 Segurança & Chaves
 
-Os scripts de conexão nesta pasta consomem automaticamente as variáveis (`FRIGO_SERVER_*` e `ORBS_SERVER_*`) e chaves criptográficas armazenadas no [Vault](../../../../Vault). Nenhuma chave SSH ou senha reside neste repositório.
+O script `connect.sh` consome automaticamente as variáveis (`FRIGO_SERVER_*` e `ORBS_SERVER_*`) e chaves criptográficas armazenadas no Vault (`~/.vault/keys/`). Nenhuma chave SSH ou segredo reside neste repositório.

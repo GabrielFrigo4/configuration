@@ -1,53 +1,65 @@
 #!/usr/bin/env sh
+# ------------------------------------------------------------------------------
+# Recipe: Debian CLI Tools, Document Converters & Utilities
+# ------------------------------------------------------------------------------
 set -eu
 
-sudo apt install --yes eza
-sudo apt install --yes bat
-sudo apt install --yes fd-find
-sudo apt install --yes ripgrep
+echo "📦 [Debian Tools]: Instalando utilitários essenciais de linha de comando..."
 
-### Alias Rust Tools
+if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	SUDO="sudo"
+else
+	SUDO=""
+fi
 
-cat << 'EOF' | sudo tee "/usr/local/bin/bat" > "/dev/null"
-#!/bin/bash
+TARGET_USER="${SUDO_USER:-$(id -un)}"
+
+${SUDO} apt install -y \
+	eza \
+	bat \
+	fd-find \
+	ripgrep \
+	texlive-latex-extra \
+	texlive-lang-portuguese \
+	pandoc \
+	weasyprint \
+	imagemagick \
+	ffmpeg \
+	dos2unix \
+	checksec \
+	dirb \
+	wireshark
+
+mkdir -p "/usr/local/bin"
+
+if command -v batcat > "/dev/null" 2>&1 && [ ! -f "/usr/local/bin/bat" ]; then
+	cat << 'EOF' | ${SUDO} tee "/usr/local/bin/bat" > "/dev/null"
+#!/usr/bin/env sh
 batcat "$@"
 EOF
-sudo chmod +x "/usr/local/bin/bat"
+	${SUDO} chmod 0755 "/usr/local/bin/bat"
+fi
 
-cat << 'EOF' | sudo tee "/usr/local/bin/fd" > "/dev/null"
-#!/bin/bash
+if command -v fdfind > "/dev/null" 2>&1 && [ ! -f "/usr/local/bin/fd" ]; then
+	cat << 'EOF' | ${SUDO} tee "/usr/local/bin/fd" > "/dev/null"
+#!/usr/bin/env sh
 fdfind "$@"
 EOF
-sudo chmod +x "/usr/local/bin/fd"
+	${SUDO} chmod 0755 "/usr/local/bin/fd"
+fi
 
-sudo apt install --yes texlive-latex-extra
-sudo apt install --yes texlive-lang-portuguese
+if getent group wireshark > "/dev/null" 2>&1; then
+	${SUDO} usermod -aG wireshark "${TARGET_USER}" 2> "/dev/null" || true
+fi
 
-sudo apt install --yes pandoc
-sudo apt install --yes weasyprint
+if [ ! -f "/etc/apt/sources.list.d/dbeaver.list" ]; then
+	${SUDO} mkdir -p "/usr/share/keyrings"
+	curl -fsSL "https://dbeaver.io/debs/dbeaver.gpg.key" | \
+		${SUDO} gpg --dearmor --yes -o "/usr/share/keyrings/dbeaver.gpg.key" 2> "/dev/null" || true
+	echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | \
+		${SUDO} tee "/etc/apt/sources.list.d/dbeaver.list" > "/dev/null"
+	${SUDO} apt update 2> "/dev/null" || true
+	${SUDO} apt install -y dbeaver-ce 2> "/dev/null" || true
+fi
 
-sudo apt install --yes imagemagick
-sudo apt install --yes ffmpeg
-
-sudo apt install --yes dos2unix
-
-sudo apt install --yes checksec
-sudo apt install --yes dirb
-
-curl -sL "https://firebase.tools" | sudo upgrade=true bash
-
-sudo apt install --yes wireshark
-sudo dpkg-reconfigure wireshark-common
-sudo usermod -aG wireshark "$(id -un)"
-newgrp wireshark
-cat << 'EOF' | sudo tee "/usr/local/bin/wireshark" > "/dev/null"
-#!/bin/bash
-QT_QPA_PLATFORMTHEME="" /usr/bin/wireshark "$@"
-EOF
-sudo chmod +x "/usr/local/bin/wireshark"
-
-sudo wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key
-echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee "/etc/apt/sources.list.d/dbeaver.list" > "/dev/null"
-sudo apt update
-sudo apt install --yes dbeaver-ce
-
+echo "✅ [Debian Tools]: Utilitários instalados com sucesso!"

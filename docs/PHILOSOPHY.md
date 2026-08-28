@@ -11,8 +11,8 @@ Em vez de instalar e jogar dezenas de linguagens, bancos de dados e frameworks (
 O _host_ é responsável única e exclusivamente por:
 
 - Prover a interface gráfica nativa em Wayland:
-  - **Fedora Workstation:** GNOME Shell puro com Adwaita dark.
-  - **FreeBSD Desktop:** KDE Plasma 6 Wayland.
+    - **Fedora Workstation:** GNOME Shell puro com Adwaita dark.
+    - **FreeBSD Desktop:** KDE Plasma 6 Wayland.
 - Gerenciar drivers de hardware (áudio, vídeo, rede).
 - Executar os editores de código (IDEs) e navegadores.
 - Rodar o _hypervisor_ ou agente de virtualização e containers.

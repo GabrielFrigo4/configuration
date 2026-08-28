@@ -1,38 +1,39 @@
-# 🌐 Bootstrap Common (Multiplataforma) — Catálogo de Receitas
+# 🌐 Bootstrap Common (Multiplataforma POSIX) — Catálogo de Receitas
 
-> Receitas modulares e universais compartilhadas entre Linux, FreeBSD e Windows.
+> Receitas modulares e universais em POSIX Shell (`.sh`) compartilhadas entre Linux, FreeBSD, macOS, WSL2 e MSYS2.
 
 ---
 
 ## 🎯 Finalidade
 
-Esta pasta abriga configurações que são **100% agnósticas de distribuição**, com implementações equivalentes tanto para sistemas UNIX (`.sh`) quanto para Windows (`.cmd` / `.ps1`).
+Esta pasta abriga receitas de automação que são **100% puras em POSIX Shell (`.sh`)**, agnósticas de distribuição e prontas para execução imediata em qualquer ambiente UNIX.
+
+> ℹ️ **Automações Windows (.cmd / .ps1):** As receitas equivalentes para Windows residem em [`../windows/native/`](../windows/native/README.md).
 
 ---
 
 ## 📂 Catálogo de Recursos
 
-| Recurso | Receita | Plataforma | Descrição |
-| :--- | :--- | :--- | :--- |
-| **`editors/`** | [`editors/editors.sh`](editors/editors.sh) | Linux / FreeBSD | Clona ou atualiza perfis pessoais de editores (Emacs, Neovim, Vim, Helix, Micro) |
-| **`editors/`** | [`editors/editors.cmd`](editors/editors.cmd) | Windows | Clona ou atualiza perfis pessoais de editores no Windows |
-| **`fonts/`** | [`fonts/fonts.sh`](fonts/fonts.sh) | Linux / FreeBSD | Baixa e instala fontes essenciais (JetBrainsMono, RobotoMono, MesloLGS NF) |
-| **`fonts/`** | [`fonts/fonts.ps1`](fonts/fonts.ps1) | Windows | Baixa e instala fontes essenciais (Carlito, JetBrainsMono, RobotoMono, MesloLGS NF) |
-| **`linters/`** | [`linters/linters.sh`](linters/linters.sh) | Linux / FreeBSD | Implanta configurações de linters globais (clangd, clang-format, prettier, stylua) |
-| **`linters/`** | [`linters/linters.cmd`](linters/linters.cmd) | Windows | Implanta configurações de linters globais no Windows |
+| Recurso                             | Tipo        | Descrição                                                                                                                        |
+| :---------------------------------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| **[`editors/`](editors/README.md)** | Subcatálogo | Perfis pessoais (`editors.sh`), frameworks (`doom-emacs.sh`, `lazyvim.sh`, `spacevim.sh`) e sincronizador (`sync-extensions.sh`) |
+| **[`fonts/`](fonts/README.md)**     | Receita     | Instalação de fontes tipográficas essenciais (`JetBrainsMono`, `RobotoMono`, `MesloLGS NF`)                                      |
+| **[`linters/`](linters/README.md)** | Receitas    | Implantação de formatadores (`linters.sh`) e instalador global do Prettier (`prettier.sh`)                                       |
+| **[`vcs/`](vcs/README.md)**         | Receitas    | Configuração global do Git (`git.sh`) e Game of Trees (`got.sh`)                                                                 |
 
 ---
 
 ## 🚀 Como Usar via GitHub (Zero-Clone)
 
-Execute qualquer receita diretamente via terminal sem necessidade de clonar o repositório:
+Execute qualquer receita diretamente via terminal:
 
-### Em sistemas UNIX (Linux / FreeBSD):
 ```sh
+# Instalar fontes universais
 curl -fsSL https://raw.githubusercontent.com/GabrielFrigo4/Configuration/main/bootstrap/common/fonts/fonts.sh | sh
-```
 
-### No Windows (PowerShell / Prompt de Comando):
-```powershell
-irm https://raw.githubusercontent.com/GabrielFrigo4/Configuration/main/bootstrap/common/fonts/fonts.ps1 | iex
+# Configurar formatadores e linters globais
+curl -fsSL https://raw.githubusercontent.com/GabrielFrigo4/Configuration/main/bootstrap/common/linters/linters.sh | sh
+
+# Configurar Git
+curl -fsSL https://raw.githubusercontent.com/GabrielFrigo4/Configuration/main/bootstrap/common/vcs/git.sh | sh
 ```

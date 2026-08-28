@@ -7,33 +7,37 @@
 ## 🎯 Finalidade
 
 Esta pasta centraliza ferramentas para sanear e converter formatos de arquivos entre diferentes sistemas operacionais:
-- **dos2unix / unix2dos:** Conversão pura de quebras de linha (`\r\n` ⟷ `\n`) sem depender da instalação de pacotes externos no sistema.
-- **md2pdf:** Conversão recursiva em lote de diretórios Markdown para PDFs tipograficamente elegantes via Pandoc e WeasyPrint.
+
+- **`line-endings`:** Conversão unificada de quebras de linha (`\r\n` ⟷ `\n`) sem depender de pacotes externos.
+- **`md2pdf`:** Conversão recursiva em lote de diretórios Markdown para PDFs tipograficamente elegantes via Pandoc e WeasyPrint.
 
 ---
 
 ## 📂 Catálogo de Arquivos
 
-| Arquivo | Tipo | Descrição |
-| :--- | :--- | :--- |
-| [`dos2unix.sh`](dos2unix.sh) | Script Shell POSIX | Remove carriage returns (`\r`) de arquivos de texto no Linux/FreeBSD |
-| [`dos2unix.ps1`](dos2unix.ps1) | PowerShell | Equivalente PowerShell para converter CRLF em LF no Windows |
-| [`unix2dos.sh`](unix2dos.sh) | Script Shell POSIX | Adiciona carriage returns (`\r`) para compatibilidade clássica com Windows |
-| [`unix2dos.ps1`](unix2dos.ps1) | PowerShell | Equivalente PowerShell para converter LF em CRLF |
-| [`md2pdf.sh`](md2pdf.sh) | Script Shell POSIX | Percorre pastas e converte arquivos `.md` em `.pdf` preservando estrutura |
-| [`md2pdf.ps1`](md2pdf.ps1) | PowerShell | Versão PowerShell do conversor Markdown para PDF |
+| Arquivo                                | Tipo               | Descrição                                                                 |
+| :------------------------------------- | :----------------- | :------------------------------------------------------------------------ |
+| [`line-endings.sh`](line-endings.sh)   | Script Shell POSIX | Converte recursivamente finais de linha entre LF (UNIX) e CRLF (DOS)      |
+| [`line-endings.ps1`](line-endings.ps1) | PowerShell         | Versão PowerShell para conversão de finais de linha no Windows            |
+| [`md2pdf.sh`](md2pdf.sh)               | Script Shell POSIX | Percorre pastas e converte arquivos `.md` em `.pdf` preservando estrutura |
+| [`md2pdf.ps1`](md2pdf.ps1)             | PowerShell         | Versão PowerShell do conversor Markdown para PDF                          |
 
 ---
 
 ## 🚀 Como Usar via GitHub (Zero-Clone)
 
 ### Conversão de Quebras de Linha
+
 ```sh
-# No terminal Linux/FreeBSD:
-sh scripts/converters/dos2unix.sh meu_arquivo.sh
+# Converter para LF (UNIX)
+sh scripts/converters/line-endings.sh --to-unix
+
+# Converter para CRLF (Windows)
+sh scripts/converters/line-endings.sh --to-dos
 ```
 
 ### Markdown para PDF
+
 ```sh
 # Converte todos os arquivos .md dentro da pasta docs/:
 sh scripts/converters/md2pdf.sh ./docs

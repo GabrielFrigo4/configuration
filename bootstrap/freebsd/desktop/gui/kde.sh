@@ -12,8 +12,6 @@ else
 	SUDO=""
 fi
 
-${SUDO} pkg install --yes desktop-installer
-
-${SUDO} pkg install --yes wl-clipboard xclip octopkg
+${SUDO} pkg install --yes desktop-installer wl-clipboard xclip octopkg
 
 echo "✅ [FreeBSD KDE]: Ambiente pronto! Execute 'desktop-installer' para seleção interativa se necessário."

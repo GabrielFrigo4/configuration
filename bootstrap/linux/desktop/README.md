@@ -12,11 +12,11 @@ Reúne as distribuições Linux utilizadas como estações de trabalho e ambient
 
 ## 📂 Distribuições Disponíveis
 
-| Distribuição | Papel no Ecossistema | Catálogo de Receitas |
-| :--- | :--- | :--- |
-| **Fedora** | Estação de trabalho principal (GNOME Wayland) | [`fedora/`](fedora/README.md) |
-| **Arch Linux** | Ambiente de experimentação e desenvolvimento avançado | [`arch/`](arch/README.md) |
-| **Debian** | Estação de alta estabilidade e compatibilidade legada | [`debian/`](debian/README.md) |
+| Distribuição   | Papel no Ecossistema                                  | Catálogo de Receitas          |
+| :------------- | :---------------------------------------------------- | :---------------------------- |
+| **Fedora**     | Estação de trabalho principal (GNOME Wayland)         | [`fedora/`](fedora/README.md) |
+| **Arch Linux** | Ambiente de experimentação e desenvolvimento avançado | [`arch/`](arch/README.md)     |
+| **Debian**     | Estação de alta estabilidade e compatibilidade legada | [`debian/`](debian/README.md) |
 
 ---
 

@@ -13,14 +13,15 @@ Por padrão, o Firefox bloqueia o acesso assíncrono à área de transferência 
 1. Abra uma nova aba e digite: `about:config`
 2. Clique no aviso: **"Aceitar o risco e continuar"**
 3. Na barra de pesquisa, busque por:
-   ```text
-   dom.events.testing.asyncClipboard
-   ```
+    ```text
+    dom.events.testing.asyncClipboard
+    ```
 4. Clique duas vezes ou no botão de alternância (⇄) para mudar o valor para **`true`**.
 
 ### O que isso destrava
 
 Permite que a Clipboard API opere de ponta a ponta:
+
 - `navigator.clipboard.writeText(texto)` — escrita direta de texto/código.
 - `navigator.clipboard.readText()` — leitura de blocos de texto.
 - `navigator.clipboard.write(data)` / `read()` — manipulação de blobs arbitrários.

@@ -42,11 +42,13 @@ Shell/
 Para garantir consistência e performance sem adicionar complexidade desnecessária, focamos nos interpretadores mais maduros:
 
 ### Ambientes UNIX (Linux, FreeBSD, macOS, WSL2)
+
 - **`sh`**: Shell POSIX puro (`/bin/sh` do FreeBSD, `dash` do Debian). Utilizado em scripts de infraestrutura ultra-leves e rápidos.
 - **`bash`**: Presente nativamente na maioria das distribuições Linux e servidores.
 - **`zsh`**: Shell interativo padrão diário, altamente configurado com autocompletion e navegação eficiente.
 
 ### Ambientes Windows Nativo
+
 - **`pwsh` (PowerShell Core)**: Automação moderna de scripts e manipulação de objetos.
 - **`cmd`**: Prompt clássico do Windows com suporte a `clink` para readline.
 - **`nushell`**: Shell moderno com dados estruturados para pipelines avançados.

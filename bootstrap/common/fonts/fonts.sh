@@ -27,9 +27,13 @@ fi
 
 if [ ! -f "${FONTS_DIR}/MesloLGS NF Regular.ttf" ]; then
 	echo "  ➔ Baixando MesloLGS Nerd Fonts..."
-	for _style in Regular Bold Italic "Bold Italic"; do
-		curl -fsSL -o "${FONTS_DIR}/MesloLGS NF ${_style}.ttf" \
-			"https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20${_style// /%20}.ttf" || true
+	for _style in "Regular" "Bold" "Italic" "Bold%20Italic"; do
+		case "${_style}" in
+			"Bold%20Italic") _name="MesloLGS NF Bold Italic.ttf" ;;
+			*) _name="MesloLGS NF ${_style}.ttf" ;;
+		esac
+		curl -fsSL -o "${FONTS_DIR}/${_name}" \
+			"https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20${_style}.ttf" || true
 	done
 fi
 

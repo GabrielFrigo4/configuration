@@ -1,36 +1,45 @@
-# 💻 Software (Dotfiles & Configurações de Aplicativos)
+# 💻 Software (Dotfiles & Configurações Declarativas de Aplicativos)
 
-Esta pasta reúne as configurações declarativas e os "dotfiles" para as aplicações de interface gráfica e utilitários que rodam diretamente no *Host*.
-
-Seguindo nossos princípios de Clean Code e UNIX ([`../PRINCIPLES.md`](../PRINCIPLES.md)), mantemos as configurações estáticas puras em seus formatos originais (JSON, TOML, YAML), sem acoplamento com gerenciadores complexos de dotfiles.
+> Configurações declarativas ("dotfiles") e perfis de usuário para aplicações de interface gráfica, editores e ferramentas no Host.
 
 ---
 
-## 📂 O Que Encontrar Aqui
+## 🎯 A Fronteira: `software/` vs `bootstrap/`
 
-- **[`editors/`](editors/README.md)**: Configurações (`settings.json`, perfis) e scripts de setup para Neovim, Vim, Helix, Emacs, VS Code, VSCodium, Zed e Antigravity.
-- **[`browsers/`](browsers/firefox/README.md)**: Ajustes essenciais de navegadores no Host (Mozilla Firefox, aceleração Wayland e clipboard assíncrono).
-- **[`terminals/`](terminals/README.md)**: Perfis gráficos para emuladores de terminal (Konsole do KDE, Windows Terminal, CMD com Clink, PowerShell e NuShell).
-- **[`tools/`](tools/README.md)**: Configurações declarativas de formatação e LSP essenciais que rodam no host (`.clang-format`, `.prettierrc`, `.stylua.toml`, `clangd.yaml`, configs Mermaid).
-- **`vcs/`**: Configurações de controle de versão (Git e Game of Trees - Got).
-- **[`external.md`](external.md)**: Catálogo de softwares externos recomendados, utilitários manuais e ferramentas da Microsoft Store.
+Para manter o ecossistema estritamente desacoplado, este repositório divide o sistema em duas camadas bem delimitadas:
+
+| Camada                                     | Papel Central                        | Tipo de Conteúdo                                                                                               | Escopo                                                                                                        |
+| :----------------------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
+| **`software/`** _(esta pasta)_             | **O "O QUÊ" (Estado Declarativo)**   | Arquivos estáticos puros (`.json`, `.toml`, `.yaml`, `.el`, `.vim`, `.profile`, `.txt`) e dotfiles do usuário. | Espaço do usuário (`$HOME` / `~/.config` / `%APPDATA%`). **Zero sudo** / Zero gerenciadores de pacotes de SO. |
+| **[`bootstrap/`](../bootstrap/README.md)** | **O "COMO" (Provisionamento Ativo)** | Receitas atômicas de automação e scripts de sistema (`.sh`, `.cmd` e `.ps1`).                                  | Nível de sistema/máquina (`dnf`, `apt`, `pkg`, `winget`, drivers, containers, fontes do sistema).             |
+
+---
+
+## 📂 Catálogo de Configurações
+
+- **[`editors/`](editors/README.md)**: Configurações declarativas (`settings.json`, `extensions.txt`, configs standalone `lite.el` e `lite.vim`) para Antigravity, VS Code, VSCodium, Zed, Emacs e Vim.
+- **[`terminals/`](terminals/README.md)**: Perfis gráficos e dotfiles de inicialização para Konsole (KDE), Windows Terminal, CMD (Clink), PowerShell e NuShell.
+- **[`tools/`](tools/README.md)**: Configurações declarativas globais de formatadores e LSP (`.clang-format`, `.prettierrc`, `.stylua.toml`, `clangd.yaml`, configs Mermaid).
+- **[`browsers/`](browsers/firefox/README.md)**: Ajustes de navegadores no Host (Mozilla Firefox, aceleração Wayland e clipboard assíncrono).
+
+> ℹ️ **Instaladores Manuais e Softwares Portáteis:** Consulte o guia em [`../docs/EXTERNAL.md`](../docs/EXTERNAL.md).
 
 ---
 
 ## 🚫 O Que NÃO Deve Ficar Aqui
 
-- **Comportamento Dinâmico de Shell**: Scripts de inicialização interativa (`.zshrc`, `.bashrc`, aliases, prompts). Estes pertencem exclusivamente ao repositório **[Shell](https://github.com/GabrielFrigo4/Shell)**.
-- **Segredos e Credenciais**: Chaves SSH, senhas de redes Wi-Fi, credenciais e tokens. Estes pertencem exclusivamente ao repositório privado **[Vault](https://github.com/GabrielFrigo4/Vault)**.
-- **Ambientes Pesados de Linguagens de Programação**: Node.js, Python virtualenvs, Rust toolchains de projetos específicos não poluem o host. Eles devem ser isolados em Containers ou Jails.
+- **Scripts de Instalação e Frameworks**: Scripts de setup de editores, frameworks e controle de versão pertencem a [`bootstrap/common/`](../bootstrap/common/README.md).
+- **Provisionamento de SO e Pacotes**: Instalação de binários via `apt`, `dnf`, `pkg` ou `winget`. Pertencem a [`bootstrap/`](../bootstrap/README.md).
+- **Comportamento Dinâmico de Shell**: Scripts de inicialização interativa (`.zshrc`, `.bashrc`, aliases, prompts). Pertencem ao repositório **[Shell](https://github.com/GabrielFrigo4/Shell)**.
+- **Segredos e Credenciais**: Chaves SSH, senhas de redes Wi-Fi, credenciais e tokens. Pertencem ao repositório privado **[Vault](https://github.com/GabrielFrigo4/Vault)**.
+- **Ambientes de Desenvolvimento de Projetos**: Compiladores pesados e runtimes de projetos não poluem o host; rodam isolados em Containers ou Jails.
 
 ---
 
-## 📜 Princípios e Padrões Obrigatórios da Camada de Software
+## 📜 Princípios e Padrões da Camada de Software
 
-Conforme estabelecido em [`../PRINCIPLES.md`](../PRINCIPLES.md), as configurações desta pasta seguem:
+Conforme estabelecido em [`../PRINCIPLES.md`](../PRINCIPLES.md):
 
-1. **Permissões em 4 Dígitos Octais:** Utilize SEMPRE notação de 4 dígitos em comandos `chmod`: `chmod 0755` para diretórios e scripts executáveis de instalação, e `chmod 0644` para arquivos de configuração declarativos (`.json`, `.toml`, `.yaml`, `.profile`).
-2. **Shebang Padrão Absoluto (`#!/usr/bin/env sh`):** Qualquer script de instalação ou linkagem deve usar obrigatoriamente `#!/usr/bin/env sh`.
-3. **Aderência ao Padrão XDG Base Directory:** Configurações de ferramentas do usuário devem residir em `~/.config/` (ou `%LOCALAPPDATA%` no Windows).
-4. **Idempotência com Links Simbólicos:** Prefira symlinks atômicos (`ln -sf`) em vez de cópias manuais para dotfiles de uso contínuo.
-5. **Configurações Puristas e Declarativas:** Arquivos devem ser mantidos legíveis e sem complexidade de automação desnecessária. Evitamos gerenciadores externos pesados de dotfiles.
+1. **Permissões em 4 Dígitos:** Todos os arquivos de configuração declarativos nesta pasta devem ter permissão `chmod 0644`.
+2. **Aderência ao Padrão XDG Base Directory:** Configurações de ferramentas do usuário devem residir em `~/.config/` (ou `%LOCALAPPDATA%` no Windows).
+3. **Idempotência & Pureza Declarativa:** Prefira symlinks atômicos (`ln -sf`) ou cópias limpas para dotfiles de uso contínuo. Zero dependência de gerenciadores externos de dotfiles.
