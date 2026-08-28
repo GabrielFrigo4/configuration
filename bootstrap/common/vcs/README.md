@@ -10,7 +10,7 @@ Esta pasta fornece scripts de configuração global em POSIX Shell para o **Git*
 
 Os scripts aplicam boas práticas recomendadas (branch padrão `main`, autocrlf adequado ao SO, merge sem rebase acidental) e consomem credenciais de autor (`GIT_AUTHOR_NAME` e `GIT_AUTHOR_EMAIL`) exportadas pelo **Vault** se estiverem disponíveis no ambiente.
 
-> ℹ️ **Automações Windows (CMD):** As receitas equivalentes para Windows residem em [`../../windows/native/vcs/`](../../windows/native/vcs/README.md).
+> ℹ️ **Automações Windows (CMD):** As receitas equivalentes para Windows residem em [`../../windows/native/`](../../windows/native/README.md).
 
 ---
 

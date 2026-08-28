@@ -17,12 +17,12 @@ O antigo backlog de refatoração foi completamente quitado. As seções abaixo 
 > **Prioridade:** 🔴 Alta (Manutenção Preventiva)  
 > **Objetivo:** Garantir que o repositório nunca regrida em complexidade, duplicações de código, monólitos ou formatações inconsistentes.
 
-- [ ] **Auditoria Periódica de Monólitos & Nanos:** Executar a suite de auditoria antes de grandes modificações:
-    - `python3 scripts/audit/monoliths.py` (teto: 100 linhas por script).
-    - `python3 scripts/audit/nanos.py` (piso: 15 linhas para scripts isolados).
-- [ ] **Formatação Global de Documentação (Prettier):** Rodar `prettier --write "**/*.md"` para assegurar que todos os markdowns respeitem a largura de 96 colunas e estilo uniforme.
-- [ ] **Conformidade Octal em 4 Dígitos:** Garantir que novos arquivos recebam permissões explícitas (`0755` para executáveis, `0644` para dotfiles/configs e `0440` para arquivos de elevação).
-- [ ] **Validação Estrita de Sintaxe POSIX:** Rodar varredura com `sh -n` em 100% dos scripts `.sh` antes de qualquer commit.
+- [x] **Suite de Auditoria e Qualidade Contínua:** Executar `python3 scripts/audit/all.py` para validar 100% das regras:
+    - `python3 scripts/audit/monoliths.py` (teto: 128 linhas por script).
+    - `python3 scripts/audit/nanos.py` (piso: 16 linhas para scripts isolados).
+    - `python3 scripts/audit/syntax.py` (validação POSIX `sh -n`, shebangs e modo defensivo).
+    - `python3 scripts/audit/links.py` (integridade de 100% dos links Markdown).
+    - `python3 scripts/audit/formats.py` (JSON, JSONC, YAML multi-doc, PS1 e REG).
 
 ---
 

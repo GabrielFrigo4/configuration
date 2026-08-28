@@ -16,8 +16,10 @@ call :sync_file ".clang-format" "%USERPROFILE%\.clang-format"
 call :sync_file "clangd.yaml" "%LOCALAPPDATA%\clangd\config.yaml"
 call :sync_file ".prettierrc" "%USERPROFILE%\.prettierrc"
 call :sync_file ".stylua.toml" "%USERPROFILE%\.stylua.toml"
+call :sync_file "mermaid-puppeteer.json" "%USERPROFILE%\.mermaid-puppeteer-config.json"
+call :sync_file "mermaid-theme.json" "%USERPROFILE%\.mermaid-theme-config.json"
 
-echo [+] Formatadores (.clang-format, clangd, prettier, stylua) configurados com sucesso!
+echo [+] Formatadores (.clang-format, clangd, prettier, stylua, mermaid) configurados com sucesso!
 goto :eof
 
 :sync_file

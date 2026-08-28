@@ -29,5 +29,7 @@ sync_file ".clang-format" "${HOME}/.clang-format"
 sync_file "clangd.yaml" "${HOME}/.config/clangd/config.yaml"
 sync_file ".prettierrc" "${HOME}/.prettierrc"
 sync_file ".stylua.toml" "${HOME}/.stylua.toml"
+sync_file "mermaid-puppeteer.json" "${HOME}/.mermaid-puppeteer-config.json"
+sync_file "mermaid-theme.json" "${HOME}/.mermaid-theme-config.json"
 
-echo "✅ [Common Tools]: Formatadores (.clang-format, clangd, prettier, stylua) configurados!"
+echo "✅ [Common Tools]: Formatadores (.clang-format, clangd, prettier, stylua, mermaid) configurados!"

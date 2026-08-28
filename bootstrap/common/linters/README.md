@@ -16,7 +16,7 @@ Esta pasta fornece scripts de provisionamento para implantar as configurações 
 
 | Arquivo                      | Plataforma                    | Descrição                                                                         |
 | :--------------------------- | :---------------------------- | :-------------------------------------------------------------------------------- |
-| [`linters.sh`](linters.sh)   | Linux / FreeBSD / macOS / WSL | Implanta `.clang-format`, `.prettierrc`, `.stylua.toml` e `config.yaml` do Clangd |
+| [`linters.sh`](linters.sh)   | Linux / FreeBSD / macOS / WSL | Implanta `.clang-format`, `.prettierrc`, `.stylua.toml`, `config.yaml` do Clangd e configs Mermaid |
 | [`prettier.sh`](prettier.sh) | Linux / FreeBSD / macOS / WSL | Instala o runtime Node.js/NPM e o binário global do Prettier CLI                  |
 
 ---

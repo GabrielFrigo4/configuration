@@ -8,7 +8,7 @@
 
 Esta pasta reúne scripts autônomos em POSIX Shell para provisionar editores de texto e código em ambientes UNIX (Linux, FreeBSD, macOS, WSL2 e MSYS2).
 
-> ℹ️ **Automações Windows (.cmd / .ps1):** As receitas equivalentes para Windows residem em [`../../windows/native/editors/`](../../windows/native/editors/README.md).
+> ℹ️ **Automações Windows (.cmd / .ps1):** As receitas equivalentes para Windows residem em [`../../windows/native/`](../../windows/native/README.md).
 
 ---
 

@@ -16,9 +16,15 @@ if ! command -v antigravity > "/dev/null" 2>&1; then
 	curl -fsSL https://antigravity.google/cli/install.sh | bash
 fi
 
-if [ -f "/opt/antigravity/antigravity-ide" ]; then
+if [ -f "/opt/antigravity/bin/antigravity-ide" ]; then
+	${SUDO} ln -sf "/opt/antigravity/bin/antigravity-ide" "/usr/local/bin/antigravity"
+	${SUDO} ln -sf "/opt/antigravity/bin/antigravity-ide" "/usr/local/bin/antigravity-ide"
+elif [ -f "/opt/antigravity/antigravity-ide" ]; then
 	${SUDO} ln -sf "/opt/antigravity/antigravity-ide" "/usr/local/bin/antigravity"
 	${SUDO} ln -sf "/opt/antigravity/antigravity-ide" "/usr/local/bin/antigravity-ide"
+fi
+
+if [ -f "/opt/antigravity/antigravity-ide" ]; then
 
 	cat << "EOF" | ${SUDO} tee "/usr/share/applications/antigravity.desktop" > "/dev/null"
 [Desktop Entry]

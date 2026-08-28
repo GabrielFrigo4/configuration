@@ -6,14 +6,14 @@
 
 ### 🖥️ Sistemas Operacionais Suportados
 
-![Linux](<https://img.shields.io/badge/🐧_Linux_(Fedora_/_Arch_/_Debian)-Supported-blue>)
+![Linux](https://img.shields.io/badge/🐧_Linux_%28Fedora_/_Arch_/_Debian%29-Supported-blue)
 ![FreeBSD](https://img.shields.io/badge/😈_FreeBSD-Supported-red)
 ![Windows](https://img.shields.io/badge/🪟_Windows-Supported-purple)
 
 ### 🎨 Interfaces Gráficas Nativas (Host)
 
-![GNOME](<https://img.shields.io/badge/🔵_GNOME_(Fedora)-Wayland-blue>)
-![KDE Plasma](<https://img.shields.io/badge/🟢_KDE_Plasma_(FreeBSD)-Wayland-green>)
+![GNOME](https://img.shields.io/badge/🔵_GNOME_%28Fedora%29-Wayland-blue)
+![KDE Plasma](https://img.shields.io/badge/🟢_KDE_Plasma_%28FreeBSD%29-Wayland-green)
 
 ---
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Audit Nano Scripts: Varredura de integridade contra micro-scripts excessivamente fragmentados (< 15 linhas).
-Filosofia: Equilíbrio arquitetural — evitar monolitos gigantes (> 100 linhas) e evitar
-micro-scripts órfãos de 1 comando (< 15 linhas), unindo-os por temas coesos para navegação limpa no GitHub.
+Audit Nano Scripts: Varredura de integridade contra micro-scripts excessivamente fragmentados (< 16 linhas).
+Filosofia: Equilíbrio arquitetural — evitar monolitos gigantes (> 128 linhas) e evitar
+micro-scripts órfãos de 1 comando (< 16 linhas), unindo-os por temas coesos para navegação limpa no GitHub.
 """
 
 import os
@@ -14,7 +14,7 @@ DEFAULT_WHITELIST = {
     # Scripts onde 1 comando é a responsabilidade atômica estrita e intencional
 }
 
-def scan_nano_scripts(root_dir, min_lines=15, whitelist=None):
+def scan_nano_scripts(root_dir, min_lines=16, whitelist=None):
     if whitelist is None:
         whitelist = set()
 
@@ -45,7 +45,7 @@ def scan_nano_scripts(root_dir, min_lines=15, whitelist=None):
 
 def main():
     parser = argparse.ArgumentParser(description="Auditor de Micro-scripts / Nano-scripts")
-    parser.add_argument("--min-lines", type=int, default=15, help="Limite mínimo de linhas recomendadas por script (padrão: 15)")
+    parser.add_argument("--min-lines", type=int, default=16, help="Limite mínimo de linhas recomendadas por script (padrão: 16)")
     parser.add_argument("--all", action="store_true", help="Exibe todos os scripts auditados")
     args = parser.parse_args()
 

@@ -8,7 +8,7 @@
 
 Esta pasta centraliza os scripts de inspeção de código para manter o repositório em conformidade estrita com o [`PRINCIPLES.md`](../../PRINCIPLES.md):
 
-- **Equilíbrio Arquitetural:** Nem monólitos gigantes (> 100 linhas), nem micro-scripts excessivamente fragmentados (< 15 linhas).
+- **Equilíbrio Arquitetural:** Nem monólitos gigantes (> 128 linhas), nem micro-scripts excessivamente fragmentados (< 16 linhas).
 - **Legibilidade no GitHub:** Facilitar a consulta direta das receitas no navegador.
 
 ---
@@ -17,8 +17,12 @@ Esta pasta centraliza os scripts de inspeção de código para manter o reposit�
 
 | Ferramenta                     | Linguagem | Descrição                                                                         |
 | :----------------------------- | :-------- | :-------------------------------------------------------------------------------- |
-| [`monoliths.py`](monoliths.py) | Python 3  | Detecta scripts que ultrapassam o limite de 100 linhas (com suporte a whitelist)  |
-| [`nanos.py`](nanos.py)         | Python 3  | Detecta micro-scripts com menos de 15 linhas para sugerir consolidações temáticas |
+| [`all.py`](all.py)             | Python 3  | **Runner mestre:** executa a suite completa e gera o dashboard consolidado        |
+| [`monoliths.py`](monoliths.py) | Python 3  | Detecta scripts que ultrapassam o limite de 128 linhas (com suporte a whitelist) |
+| [`nanos.py`](nanos.py)         | Python 3  | Detecta micro-scripts com menos de 16 linhas para sugerir consolidações temáticas |
+| [`syntax.py`](syntax.py)       | Python 3  | Valida sintaxe POSIX (`sh -n`), shebangs, modo defensivo `set -eu` e `chmod`      |
+| [`links.py`](links.py)         | Python 3  | Valida integridade de 100% dos links relativos em arquivos Markdown (`.md`)       |
+| [`formats.py`](formats.py)     | Python 3  | Valida sintaxe de JSON, JSONC, YAML (multi-doc), PowerShell (`.ps1`) e `.reg`     |
 
 ---
 
@@ -27,9 +31,13 @@ Esta pasta centraliza os scripts de inspeção de código para manter o reposit�
 Execute a partir da raiz do repositório:
 
 ```sh
-# Auditar monólitos (> 100 linhas)
-python3 scripts/audit/monoliths.py
+# 1. Executar a suite completa (Recomendado)
+python3 scripts/audit/all.py
 
-# Auditar micro-scripts (< 15 linhas)
+# 2. Execuções individuais:
+python3 scripts/audit/monoliths.py
 python3 scripts/audit/nanos.py
+python3 scripts/audit/syntax.py
+python3 scripts/audit/links.py
+python3 scripts/audit/formats.py
 ```

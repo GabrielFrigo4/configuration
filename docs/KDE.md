@@ -10,7 +10,7 @@ No nosso ecossistema dual (**Fedora com GNOME** e **FreeBSD com KDE Plasma**), o
 
 1. **Wayland Nativo:** Sessão Wayland pura iniciada via `startplasma-wayland`, isolando processos gráficos sem a insegurança do X11 legado.
 2. **Desempenho Direto no Host:** Aceleração de hardware (GPU) sem overhead, proporcionando fluidez para gerenciar Bastille Jails, bhyve e volumes ZFS.
-3. **Konsole Moderno:** O emulador de terminal nativo do KDE oferece excelente renderização, perfis específicos para shells do FreeBSD (`software/terminals/konsole/freebsd/`) e suporte integral ao ecossistema [Shell](https://github.com/GabrielFrigo4/Shell).
+3. **Konsole Moderno:** O emulador de terminal nativo do KDE oferece excelente renderização, perfis unificados para shells (`software/terminals/konsole/`) e suporte integral ao ecossistema [Shell](https://github.com/GabrielFrigo4/Shell).
 
 ---
 
@@ -42,5 +42,5 @@ O repositório **[Shell](https://github.com/GabrielFrigo4/Shell)** traz integra�
 Para instalar e configurar o ambiente KDE Plasma no FreeBSD:
 
 ```sh
-sh bootstrap/freebsd/desktop/kde.sh
+sh bootstrap/freebsd/desktop/gui/kde.sh
 ```

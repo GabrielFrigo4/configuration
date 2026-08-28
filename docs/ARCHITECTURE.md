@@ -50,7 +50,7 @@ flowchart TD
 
 1. **Instalação do SO e Aplicação de Receitas (`Configuration`):**
     - O usuário instala o sistema base (Fedora, FreeBSD ou Windows).
-    - Acessa o repositório pelo GitHub e executa as receitas atômicas desejadas em `bootstrap/` (ex: `bootstrap/linux/fedora/desktop/gnome.sh`, `bootstrap/freebsd/system/system.sh`).
+    - Acessa o repositório pelo GitHub e executa as receitas atômicas desejadas em `bootstrap/` (ex: `bootstrap/linux/desktop/fedora/desktop/gnome.sh`, `bootstrap/freebsd/desktop/system/system.sh`).
     - O sistema ganha utilitários essenciais, drivers, ZFS, interface gráfica e containers.
 
 2. **Instalação dos Dotfiles de Softwares (`Configuration`):**
