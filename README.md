@@ -1,39 +1,68 @@
-# Configuration
+# ⚙️ Universal Configuration & System Bootstrap
 
-Repositório central de configurações de software, ferramentas de desenvolvimento e scripts de bootstrap do sistema.
+> Repositório central de provisionamento de sistema operacional, dotfiles estáticos de aplicativos de interface gráfica e configurações de estações de trabalho limpas.
 
-## 🧠 Filosofia e Arquitetura
+---
 
-Este projeto não é apenas um repositório de "dotfiles", mas a base de uma arquitetura estrita e bem definida baseada em três pilares centrais:
+### 🖥️ Sistemas Operacionais Suportados
 
-1. **"Clean Host" (Isolamento Extremo):** O sistema operacional nativo (o _host_) deve permanecer o mais puro e limpo possível. Ele é responsável **apenas** por prover a interface gráfica (Wayland/X11, via KDE Plasma), os drivers de hardware, os editores de código (IDEs) e a camada de virtualização/hypervisor. Nenhuma linguagem de programação, banco de dados ou framework de desenvolvimento é instalado diretamente no host.
-2. **"Uma coisa, um lugar" (Modularidade):** O ecossistema é quebrado em repositórios e módulos distintos. A configuração do sistema está estritamente separada do comportamento dinâmico do terminal e do gerenciamento de segredos.
-3. **Reprodutibilidade e Segurança:** Uso massivo do sistema de arquivos **ZFS** como base para snapshots, criptografia nativa e restauração rápida, aliado a tecnologias de isolamento (Jails/Containers/Hypervisors).
+![Linux](https://img.shields.io/badge/🐧_Linux_(Fedora_/_Arch_/_Debian)-Supported-blue)
+![FreeBSD](https://img.shields.io/badge/😈_FreeBSD-Supported-red)
+![Windows](https://img.shields.io/badge/🪟_Windows-Supported-purple)
 
-> 📖 **Leitura Obrigatória:** Para entender a essência deste ecossistema, leia o documento de [Filosofia (PHILOSOPHY.md)](docs/PHILOSOPHY.md) e os detalhes sobre [Containers](docs/CONTAINERS.md) e [Hypervisors](docs/HYPERVISORS.md).
+### 🎨 Interfaces Gráficas Nativas (Host)
+
+![GNOME](https://img.shields.io/badge/🔵_GNOME_(Fedora)-Wayland-blue)
+![KDE Plasma](https://img.shields.io/badge/🟢_KDE_Plasma_(FreeBSD)-Wayland-green)
+
+---
+
+## 🧠 Filosofia e Princípios de Engenharia
+
+Este repositório não é um amontoado caótico de dotfiles, mas a fundação arquitetural de uma estação de trabalho estrita e modular guiada pelos **17 Princípios UNIX** (*The Art of UNIX Programming*, 2003) e pelas práticas de **Clean Code**:
+
+1. **"Clean Host" (Isolamento Extremo):** O sistema operacional nativo (o *host*) permanece o mais puro e leve possível. Ele provê apenas a interface gráfica (Wayland nativo via GNOME no Fedora ou KDE Plasma no FreeBSD), drivers de hardware, navegadores, editores de código e a camada de virtualização/hypervisor. Nenhum banco de dados ou ambiente de desenvolvimento de projeto polui o host.
+2. **Modularidade da Tríade ("Uma coisa, um lugar"):**
+   - **`Configuration`** (este repositório): Provisionamento estático do SO e dotfiles do host.
+   - **[Shell](https://github.com/GabrielFrigo4/Shell)** (público): Comportamento interativo dinâmico, prompts, aliases e funções do terminal.
+   - **[Vault](https://github.com/GabrielFrigo4/Vault)** (privado): Cofre seguro de chaves criptográficas, credenciais e variáveis sensíveis.
+3. **Reprodutibilidade com ZFS & Idempotência:** Adoção de **ZFS** como fundação para snapshots instantâneos e replicação rápida, aliada a scripts de bootstrap que podem ser executados repetidamente com segurança.
+
+> 📖 **Leituras Obrigatórias:**
+> - [Princípios de Engenharia (PRINCIPLES.md)](PRINCIPLES.md) — Os 17 Princípios UNIX e Clean Code detalhados.
+> - [Filosofia do Ecossistema (docs/PHILOSOPHY.md)](docs/PHILOSOPHY.md)
+> - [Containers & Jails (docs/CONTAINERS.md)](docs/CONTAINERS.md)
+> - [Hypervisors & ZVOLs (docs/HYPERVISORS.md)](docs/HYPERVISORS.md)
+
+---
 
 ## 📂 Estrutura do Projeto
 
-- **[`bootstrap/`](bootstrap/README.md)** — Scripts de instalação e provisionamento inicial de sistemas operacionais limpos (Arch Linux, Debian, FreeBSD, Windows). Automatizam a instalação do ecossistema base (ZFS, ferramentas de virtualização, rede).
-- **[`software/`](software/README.md)** — Configurações estáticas e "dotfiles" dos softwares do host.
-    - **`editors/`** — Instalação e profiles (Emacs, NeoVim, Helix, VS Code, etc).
-    - **`terminals/`** — Perfis e configurações estáticas de terminal (Konsole, Windows Terminal).
-    - **`tools/`** — Configuração global de formatadores e linters essenciais do host.
-- **[`scripts/`](scripts/README.md)** — Scripts utilitários para tarefas gerais do sistema operacional.
-- **[`docs/`](docs/README.md)** — Toda a documentação detalhada da arquitetura, hypervisors, conteinerização e especificidades de ambientes (BSD, KDE).
+- **[`bootstrap/`](bootstrap/README.md)** — Provisionamento e catálogo modular de receitas por SO e contexto:
+  - **`freebsd/`** — Workstation Desktop (KDE Plasma), Server KVM e Containers (Jails & Bastille).
+  - **`linux/`** — Workstations Desktop (Fedora, Arch Linux, Debian), Servidores Cloud e Containers (Incus).
+  - **`windows/`** — Desktop nativo (Winget, engenharia reversa), WSL2 e MSYS2 (UCRT64).
+  - **`common/`** — Receitas agnósticas compartilhadas entre sistemas operacionais.
+- **[`software/`](software/README.md)** — Configurações declarativas ("dotfiles") de softwares do host:
+  - **`editors/`** — Helix, Neovim, Vim, Emacs, VS Code, VSCodium, Zed e Antigravity.
+  - **`terminals/`** — Konsole (KDE), Windows Terminal, CMD (Clink), PowerShell e NuShell.
+  - **`tools/`** — Formatadores e linters globais (`.clang-format`, `.prettierrc`, `.stylua.toml`, `clangd.yaml`).
+  - **`vcs/`** — Configurações de controle de versão (Git e Got).
+- **[`scripts/`](scripts/README.md)** — Scripts utilitários de compilação local (build), conversão de arquivos e modificações de registro do Windows.
+- **[`docs/`](docs/README.md)** — Documentação técnica abrangente da estação de trabalho.
 
-## 🚀 Getting Started
+---
 
-Este repositório foi construído para não exigir nenhuma dependência prévia do sistema além de uma instalação limpa e o comando `git`.
+## 🚀 Como Usar: O Modelo "Cookbook" (Zero Dependência de Clone)
 
-1. Clone o repositório na sua máquina recém-instalada.
-2. Navegue até o diretório correspondente ao seu sistema operacional dentro de `bootstrap/`.
-3. Execute o script mestre de instalação para configurar automaticamente pacotes base, ZFS, hypervisors e dependências do ambiente.
-4. Após o bootstrap do sistema, aplique as configurações dentro de `software/`.
+Diferente do **Vault** (que você clona privadamente) ou do **Shell** (que você clona e faz source contínuo), o **Configuration** foi concebido como um **Catálogo de Receitas Modular**:
 
-## 🔗 O Ecossistema da Tríade
+1. **Acesso Direto pelo GitHub:** Não é necessário clonar este repositório para utilizá-lo. Navegue pelos arquivos diretamente na interface web do GitHub.
+2. **Cópia e Cola / Download Pontual:** Quando precisar de uma configuração de editor ou formatador, baixe ou copie os arquivos declarativos puros (`.json`, `.toml`, `.yaml`) de [`software/`](software/README.md).
+3. **Receitas Autônomas de Sistema:** Quando estiver provisionando ou ajustando um software no Fedora, FreeBSD ou Windows, execute a receita específica correspondente em [`bootstrap/`](bootstrap/README.md).
 
-Este repositório trabalha em conjunto com outras duas peças fundamentais que completam o sistema:
+---
 
-- **[Shell](https://github.com/GabrielFrigo4/Shell)**: Scripts utilitários, comportamento ativo, aliases e lógicas dinâmicas de terminal. Diferente de configurações estáticas, aqui vive o "motor" do shell. Veja a [documentação do Shell](docs/SHELL.md).
-- **[Vault](https://github.com/GabrielFrigo4/Vault)** (Privado): O cofre do ecossistema. Gerenciamento estrito de chaves SSH, credenciais, e variáveis de ambiente sensíveis. Veja a [documentação do Vault](docs/VAULT.md).
+## 📜 Princípios e Contratos
+
+Consulte [`PRINCIPLES.md`](PRINCIPLES.md) para conhecer os 17 princípios UNIX, diretrizes Clean Code, permissões canônicas em 4 dígitos (`0755`/`0644`/`0440`) e o Template Canônico de Receitas.
