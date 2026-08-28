@@ -13,9 +13,9 @@ else
 fi
 
 if command -v dnf > "/dev/null" 2>&1; then
-	${SUDO} dnf install -y flatpak
+	${SUDO} dnf install --assumeyes flatpak
 elif command -v apt > "/dev/null" 2>&1; then
-	${SUDO} apt install -y flatpak gnome-software-plugin-flatpak
+	${SUDO} apt install --yes flatpak gnome-software-plugin-flatpak
 elif command -v pacman > "/dev/null" 2>&1; then
 	${SUDO} pacman -S --needed --noconfirm flatpak
 fi

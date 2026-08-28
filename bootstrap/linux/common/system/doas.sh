@@ -13,11 +13,11 @@ else
 fi
 
 if command -v dnf > "/dev/null" 2>&1; then
-	${SUDO} dnf install -y opendoas
+	${SUDO} dnf install --assumeyes opendoas
 	TARGET_GROUP="wheel"
 elif command -v apt > "/dev/null" 2>&1; then
 	${SUDO} apt update 2> "/dev/null" || true
-	${SUDO} apt install -y doas
+	${SUDO} apt install --yes doas
 	TARGET_GROUP="sudo"
 elif command -v pacman > "/dev/null" 2>&1; then
 	${SUDO} pacman -S --needed --noconfirm opendoas

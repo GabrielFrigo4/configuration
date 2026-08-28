@@ -18,16 +18,16 @@ if ! command -v node > "/dev/null" 2>&1 || ! command -v npm > "/dev/null" 2>&1; 
 	if command -v pkg > "/dev/null" 2>&1; then
 		${SUDO} pkg install --yes node npm
 	elif command -v dnf > "/dev/null" 2>&1; then
-		${SUDO} dnf install -y nodejs npm
+		${SUDO} dnf install --assumeyes nodejs npm
 	elif command -v apt > "/dev/null" 2>&1; then
-		${SUDO} apt install -y nodejs npm
+		${SUDO} apt install --yes nodejs npm
 	elif command -v pacman > "/dev/null" 2>&1; then
 		${SUDO} pacman -S --needed --noconfirm prettier 2> "/dev/null" || ${SUDO} pacman -S --needed --noconfirm nodejs npm
 	fi
 fi
 
 if ! command -v prettier > "/dev/null" 2>&1 && command -v npm > "/dev/null" 2>&1; then
-	${SUDO} npm install -g prettier
+	${SUDO} npm install --global prettier
 fi
 
 echo "✅ [Prettier CLI]: Prettier configurado com sucesso!"

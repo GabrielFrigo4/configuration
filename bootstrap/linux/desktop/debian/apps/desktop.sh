@@ -29,10 +29,10 @@ if [ ! -f "/etc/apt/sources.list.d/microsoft-edge.list" ]; then
 fi
 
 ${SUDO} apt update 2> "/dev/null" || true
-${SUDO} apt install -y google-chrome-stable microsoft-edge-stable 2> "/dev/null" || true
+${SUDO} apt install --yes google-chrome-stable microsoft-edge-stable 2> "/dev/null" || true
 
 if command -v flatpak > "/dev/null" 2>&1; then
-	flatpak install -y flathub \
+	flatpak install --assumeyes flathub \
 		io.github.shiftey.Desktop \
 		org.onlyoffice.desktopeditors \
 		org.pgadmin.pgadmin4 2> "/dev/null" || true

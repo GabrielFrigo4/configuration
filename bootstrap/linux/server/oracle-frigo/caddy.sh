@@ -12,7 +12,7 @@ else
 	SUDO=""
 fi
 
-${SUDO} apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+${SUDO} apt install --yes debian-keyring debian-archive-keyring apt-transport-https curl
 
 if [ ! -f "/etc/apt/sources.list.d/caddy-stable.list" ]; then
 	curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | ${SUDO} gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
@@ -20,7 +20,7 @@ if [ ! -f "/etc/apt/sources.list.d/caddy-stable.list" ]; then
 	${SUDO} apt update
 fi
 
-${SUDO} apt install -y caddy
+${SUDO} apt install --yes caddy
 
 cat << 'EOF' | ${SUDO} tee "/etc/caddy/Caddyfile" > "/dev/null"
 gabrielfrigo.dev.br, www.gabrielfrigo.dev.br, resume.gabrielfrigo.dev.br {

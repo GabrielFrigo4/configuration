@@ -24,7 +24,7 @@ elif command -v ufw > "/dev/null" 2>&1; then
 	${SUDO} ufw --force enable > "/dev/null" 2>&1 || true
 elif command -v iptables > "/dev/null" 2>&1; then
 	if command -v apt > "/dev/null" 2>&1; then
-		${SUDO} apt install -y iptables-persistent netfilter-persistent 2> "/dev/null" || true
+		${SUDO} apt install --yes iptables-persistent netfilter-persistent 2> "/dev/null" || true
 	fi
 	for _port in 22 80 443; do
 		${SUDO} iptables -I INPUT 1 -p tcp --dport "${_port}" -j ACCEPT 2> "/dev/null" || true

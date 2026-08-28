@@ -271,13 +271,26 @@ Ao utilizar _Dispatch Leve_ em receitas universais, as verificações condiciona
 if command -v pkg > "/dev/null" 2>&1; then
 	${SUDO} pkg install --yes pacote
 elif command -v dnf > "/dev/null" 2>&1; then
-	${SUDO} dnf install -y pacote
+	${SUDO} dnf install --assumeyes pacote
 elif command -v apt > "/dev/null" 2>&1; then
-	${SUDO} apt install -y pacote
+	${SUDO} apt install --yes pacote
 elif command -v pacman > "/dev/null" 2>&1; then
 	${SUDO} pacman -S --needed --noconfirm pacote
 fi
 ```
+
+### 14. Preferência Absoluta por Flags Longas e Autoexplicativas (Expressões por Extenso)
+
+- **Código autodocumentado:** Em receitas e scripts de automação, evite atalhos curtos crípticos (como `-y`, `-s`, `-g`, `-e`, `-h`) sempre que a ferramenta oferecer equivalentes longos e descritivos:
+  - `apt install --yes` (em vez de `apt install -y`)
+  - `dnf install --assumeyes` (em vez de `dnf install -y`)
+  - `pkg install --yes` (em vez de `pkg install -y`)
+  - `pacman -S --needed --noconfirm` (em vez de flags aglutinadas)
+  - `flatpak install --assumeyes` (em vez de `flatpak install -y`)
+  - `npm install --global` (em vez de `npm install -g`)
+  - `usermod --append --groups` (em vez de `usermod -aG`)
+- **Justificativa:** Scripts de infraestrutura são lidos e auditados muito mais vezes do que digitados. Flags longas tornam a intenção do código transparente e autoexplicativa sem que o leitor precise consultar a página de manual (`man`).
+- **Exceção Canônica:** Comandos e utilitários fundamentais POSIX (`mkdir -p`, `rm -rf`, `ln -sf`, `id -u`, `set -eu`, `chmod 0755`) mantêm sua notação POSIX padrão para garantir máxima portabilidade entre Linux, FreeBSD e macOS, já que variantes BSD de coreutils não suportam extensões longas GNU (como `--parents`).
 
 ---
 

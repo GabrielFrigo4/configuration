@@ -14,7 +14,7 @@ fi
 
 TARGET_USER="${SUDO_USER:-$(id -un)}"
 
-${SUDO} apt install -y \
+${SUDO} apt install --yes \
 	eza \
 	bat \
 	fd-find \
@@ -49,7 +49,7 @@ EOF
 fi
 
 if getent group wireshark > "/dev/null" 2>&1; then
-	${SUDO} usermod -aG wireshark "${TARGET_USER}" 2> "/dev/null" || true
+	${SUDO} usermod --append --groups wireshark "${TARGET_USER}" 2> "/dev/null" || true
 fi
 
 if [ ! -f "/etc/apt/sources.list.d/dbeaver.list" ]; then
@@ -59,7 +59,7 @@ if [ ! -f "/etc/apt/sources.list.d/dbeaver.list" ]; then
 	echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | \
 		${SUDO} tee "/etc/apt/sources.list.d/dbeaver.list" > "/dev/null"
 	${SUDO} apt update 2> "/dev/null" || true
-	${SUDO} apt install -y dbeaver-ce 2> "/dev/null" || true
+	${SUDO} apt install --yes dbeaver-ce 2> "/dev/null" || true
 fi
 
 echo "✅ [Debian Tools]: Utilitários instalados com sucesso!"

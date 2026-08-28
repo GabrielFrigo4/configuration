@@ -12,7 +12,7 @@ else
 	SUDO=""
 fi
 
-${SUDO} dnf install -y gnome-tweak-tool adw-gtk3-theme plasma-breeze-qt6
+${SUDO} dnf install --assumeyes gnome-tweak-tool adw-gtk3-theme plasma-breeze-qt6
 
 mkdir -p "${HOME}/.config/environment.d"
 echo "QT_QPA_PLATFORMTHEME=qt6ct" > "${HOME}/.config/environment.d/qt.conf"

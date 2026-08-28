@@ -15,15 +15,15 @@ fi
 TARGET_USER="${SUDO_USER:-$(id -un)}"
 
 if command -v dnf > "/dev/null" 2>&1; then
-	${SUDO} dnf install -y wireshark wireshark-cli
+	${SUDO} dnf install --assumeyes wireshark wireshark-cli
 elif command -v apt > "/dev/null" 2>&1; then
-	${SUDO} apt install -y wireshark tshark
+	${SUDO} apt install --yes wireshark tshark
 elif command -v pacman > "/dev/null" 2>&1; then
 	${SUDO} pacman -S --needed --noconfirm wireshark-qt wireshark-cli
 fi
 
 if getent group wireshark > "/dev/null" 2>&1; then
-	${SUDO} usermod -aG wireshark "${TARGET_USER}"
+	${SUDO} usermod --append --groups wireshark "${TARGET_USER}"
 fi
 
 echo "✅ [Linux Wireshark]: Concluído! Usuário '${TARGET_USER}' configurado para captura de pacotes."

@@ -9,7 +9,7 @@ echo "📦 [Arch Editors]: Instalando editores de código via pacman/yay e flatp
 yay -S --needed --noconfirm mg micro helix neovim vim emacs geany
 
 if command -v flatpak > "/dev/null" 2>&1; then
-	flatpak install -y flathub com.visualstudio.code 2> "/dev/null" || true
+	flatpak install --assumeyes flathub com.visualstudio.code 2> "/dev/null" || true
 fi
 
 echo "✅ [Arch Editors]: Editores instalados com sucesso!"

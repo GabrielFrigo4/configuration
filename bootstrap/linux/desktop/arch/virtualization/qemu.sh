@@ -22,6 +22,6 @@ ${SUDO} pacman -S --needed --noconfirm \
 	virt-viewer
 
 ${SUDO} systemctl enable --now libvirtd 2> "/dev/null" || true
-${SUDO} usermod -aG libvirt "${TARGET_USER}" 2> "/dev/null" || true
+${SUDO} usermod --append --groups libvirt "${TARGET_USER}" 2> "/dev/null" || true
 ${SUDO} virsh --connect qemu:///system net-autostart default 2> "/dev/null" || true
 ${SUDO} virsh --connect qemu:///system net-start default 2> "/dev/null" || true

@@ -11,7 +11,7 @@ else
 fi
 
 ${SUDO} apt update
-${SUDO} apt install -y \
+${SUDO} apt install --yes \
 	mesa-utils \
 	mesa-common-dev \
 	libgl1-mesa-dev \

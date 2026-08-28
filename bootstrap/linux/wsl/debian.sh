@@ -33,7 +33,7 @@ EOF
 
 ${SUDO} apt update
 ${SUDO} apt upgrade -y
-${SUDO} apt install -y \
+${SUDO} apt install --yes \
 	doas \
 	build-essential \
 	git \

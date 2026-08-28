@@ -32,7 +32,7 @@ default=${TARGET_USER}
 EOF
 
 ${SUDO} dnf upgrade -y
-${SUDO} dnf install -y \
+${SUDO} dnf install --assumeyes \
 	opendoas \
 	@development-tools \
 	git \

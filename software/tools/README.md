@@ -24,16 +24,16 @@ Se você precisa rodar os formatadores diretamente no terminal fora da IDE:
 ### 1. Prettier
 
 - **Receita Automática:** `curl -fsSL https://raw.githubusercontent.com/GabrielFrigo4/Configuration/main/bootstrap/common/linters/prettier.sh | sh`
-- **FreeBSD:** `doas pkg install node npm && npm install -g prettier`
-- **Fedora:** `sudo dnf install -y nodejs npm && sudo npm install -g prettier`
+- **FreeBSD:** `doas pkg install node npm && npm install --global prettier`
+- **Fedora:** `sudo dnf install --assumeyes nodejs npm && sudo npm install --global prettier`
 - **Arch Linux:** `sudo pacman -S prettier`
 
 ### 2. Clang-Format & Clangd
 
 - **FreeBSD:** `doas pkg install llvm`
-- **Fedora:** `sudo dnf install -y clang-tools-extra`
+- **Fedora:** `sudo dnf install --assumeyes clang-tools-extra`
 - **Arch Linux:** `sudo pacman -S clang`
-- **Debian:** `sudo apt install -y clang-format clangd`
+- **Debian:** `sudo apt install --yes clang-format clangd`
 
 ### 3. StyLua
 

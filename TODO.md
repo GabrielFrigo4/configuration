@@ -6,7 +6,7 @@
 
 ## 🎯 Status Atual: Estado da Arte (100% Concluído)
 
-A transição arquitetural do repositório foi concluída com sucesso absoluto. O ecossistema opera sob perfeita simetria entre **Linux**, **FreeBSD** e **Windows**, adesão aos **17 Princípios UNIX** e às **13 Regras de Clean Code** do [`PRINCIPLES.md`](PRINCIPLES.md).
+A transição arquitetural do repositório foi concluída com sucesso absoluto. O ecossistema opera sob perfeita simetria entre **Linux**, **FreeBSD** e **Windows**, adesão aos **17 Princípios UNIX** e às **14 Regras de Clean Code** do [`PRINCIPLES.md`](PRINCIPLES.md).
 
 O antigo backlog de refatoração foi completamente quitado. As seções abaixo estabelecem os temas e prioridades para a manutenção e evolução contínua da nova era.
 

@@ -12,7 +12,7 @@ else
 	SUDO=""
 fi
 
-${SUDO} dnf install -y google-carlito-fonts google-caladea-fonts
+${SUDO} dnf install --assumeyes google-carlito-fonts google-caladea-fonts
 
 FONTCONFIG_DIR="${HOME}/.config/fontconfig"
 mkdir -p "${FONTCONFIG_DIR}"

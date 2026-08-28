@@ -12,10 +12,10 @@ else
 	SUDO=""
 fi
 
-${SUDO} apt install -y mg micro neovim vim emacs geany
+${SUDO} apt install --yes mg micro neovim vim emacs geany
 
 if command -v flatpak > "/dev/null" 2>&1; then
-	flatpak install -y flathub com.visualstudio.code 2> "/dev/null" || true
+	flatpak install --assumeyes flathub com.visualstudio.code 2> "/dev/null" || true
 fi
 
 ${SUDO} mkdir -p "/etc/apt/keyrings"
@@ -25,6 +25,6 @@ echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-cent
 	${SUDO} tee "/etc/apt/sources.list.d/antigravity.list" > "/dev/null"
 
 ${SUDO} apt update 2> "/dev/null" || true
-${SUDO} apt install -y antigravity 2> "/dev/null" || true
+${SUDO} apt install --yes antigravity 2> "/dev/null" || true
 
 echo "✅ [Debian Editors]: Editores instalados com sucesso!"

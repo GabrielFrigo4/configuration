@@ -11,14 +11,14 @@ else
 fi
 
 TARGET_USER="${SUDO_USER:-$(id -un)}"
-${SUDO} usermod -aG sudo "${TARGET_USER}" 2> "/dev/null" || true
+${SUDO} usermod --append --groups sudo "${TARGET_USER}" 2> "/dev/null" || true
 
 if [ -f "/etc/apt/sources.list" ]; then
 	${SUDO} sed -i 's/main non-free-firmware/main non-free-firmware contrib non-free/' "/etc/apt/sources.list" 2> "/dev/null" || true
 fi
 
 ${SUDO} apt update
-${SUDO} apt install -y gnupg ca-certificates apt-transport-https doas
+${SUDO} apt install --yes gnupg ca-certificates apt-transport-https doas
 
 cat << 'EOF' | ${SUDO} tee "/etc/doas.conf" > "/dev/null"
 permit persist :sudo

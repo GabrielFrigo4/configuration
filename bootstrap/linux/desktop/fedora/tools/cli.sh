@@ -12,6 +12,6 @@ else
 	SUDO=""
 fi
 
-${SUDO} dnf install -y ftxui notcurses
+${SUDO} dnf install --assumeyes ftxui notcurses
 
 echo "✅ [Fedora TUI]: Bibliotecas FTXUI e Notcurses instaladas!"

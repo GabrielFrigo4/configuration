@@ -13,7 +13,7 @@ else
 fi
 
 # Suporte a sistemas de arquivos remotos
-${SUDO} dnf install -y fuse-sshfs
+${SUDO} dnf install --assumeyes fuse-sshfs
 
 # Desativação de daemons de firmware redundantes
 ${SUDO} systemctl mask --now fwupd fwupd.socket 2> "/dev/null" || true
