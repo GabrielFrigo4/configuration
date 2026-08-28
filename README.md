@@ -49,6 +49,7 @@ Este repositório não é um amontoado caótico de dotfiles, mas a fundação ar
     - **`terminals/`** — Konsole (KDE), Windows Terminal, CMD (Clink), PowerShell e NuShell.
     - **`tools/`** — Formatadores e linters globais (`.clang-format`, `.prettierrc`, `.stylua.toml`, `clangd.yaml`).
     - **`browsers/`** — Ajustes de navegadores no host (Firefox).
+- **[`skills/`](skills/README.md)** — **Habilidades & Runbooks Portáteis para IA (O "COMO OPERAR"):** Catálogo modular de skills e procedimentos para agentes de IA (Google Antigravity, Gemini, OpenAI, Claude) com ativação sob demanda via `.agents/skills/`.
 - **[`scripts/`](scripts/README.md)** — Utilitários pontuais de compilação local (build), conversão de arquivos e modificações de registro do Windows.
 - **[`docs/`](docs/README.md)** — Documentação técnica abrangente da estação de trabalho.
 

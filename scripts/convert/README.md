@@ -1,4 +1,4 @@
-# 🔄 Converters & File Processors
+# 🔄 Convert (Conversores & Processamento de Arquivos)
 
 > Scripts utilitários para conversão de quebras de linha (CRLF ⟷ LF) e geração em lote de PDFs a partir de Markdown.
 
@@ -30,15 +30,15 @@ Esta pasta centraliza ferramentas para sanear e converter formatos de arquivos e
 
 ```sh
 # Converter para LF (UNIX)
-sh scripts/converters/line-endings.sh --to-unix
+sh scripts/convert/line-endings.sh --to-unix
 
 # Converter para CRLF (Windows)
-sh scripts/converters/line-endings.sh --to-dos
+sh scripts/convert/line-endings.sh --to-dos
 ```
 
 ### Markdown para PDF
 
 ```sh
 # Converte todos os arquivos .md dentro da pasta docs/:
-sh scripts/converters/md2pdf.sh ./docs
+sh scripts/convert/md2pdf.sh ./docs
 ```

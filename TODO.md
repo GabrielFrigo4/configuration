@@ -56,3 +56,47 @@ O antigo backlog de refatoração foi completamente quitado. As seções abaixo 
 
 - [ ] **Sincronização com o repositório `Shell`:** Garantir que perfis de Konsole, Windows Terminal e variáveis XDG reflitam os aliases e loaders do ecossistema Shell.
 - [ ] **Sincronização com o repositório `Vault`:** Garantir que o script universal `connect.sh` consuma as chaves e hosts privados conforme atualizados no cofre.
+
+---
+
+## 🔄 Tema 5: Sincronização Híbrida de Dotfiles & Skills (RAW vs. Symlink Dinâmico)
+
+> **Prioridade:** 🟡 Média (Evolução de Produtividade & IA)  
+> **Objetivo:** Aprimorar scripts de implantação de dotfiles (`software/tools/`, editores) e skills portáteis para suportar inteligência de ambiente com modos dinâmico (symlink) e estático (cópia/RAW).
+
+- [ ] **Dual-Mode Sync para Linters e Formatadores (`bootstrap/common/linters/linters.sh`):**
+    - **Modo RAW / Zero-Clone:** Download e cópia estática via `curl` de `raw.githubusercontent.com` quando executado via pipe na web (`curl | sh`).
+    - **Modo Local (Symlink Dinâmico):** Quando executado a partir do repositório clonado localmente, permitir criar links simbólicos atômicos (`ln -sf`), garantindo que edições no repositório ou `git pull` atualizem imediatamente os formatadores globais (`~/.clang-format`, `~/.prettierrc`, etc.) sem necessidade de reexecução.
+    - **Modo Local (Cópia Estática):** Suporte a flag `--copy` para congelar uma cópia pontual independente de links.
+- [ ] **Script de Provisionamento de Skills Portáteis (`bootstrap/common/skills/sync-skills.sh`):**
+    - Criar receita universal para vincular as skills de `skills/` para o escopo global (`~/.gemini/config/skills/`) ou local de projeto (`.agents/skills/`).
+    - Suportar modo dinâmico (`--symlink` como padrão quando clonado) e modo estático (`--copy` / download RAW).
+
+---
+
+## 🏛️ Tema 6: Visão de Futuro — A Evolução para o "Quarteto de Produtividade" (Santo Graal)
+
+> **Prioridade:** 🔵 Futura / Arquitetura Estratégica (O "Santo Graal")  
+> **Objetivo:** Elevar o desacoplamento da Tríade de Produtividade para um **Quarteto Canônico**, separando definitivamente o provisionamento ativo de sistema (`Setup`) das configurações declarativas de usuário (`Configuration`).
+
+```text
+🏛️ O QUARTETO DE PRODUTIVIDADE
+├── 1. Setup         (Público | Nível SO / Root)    ➔ Provisionamento ativo, pacotes, drivers, containers, receitas de bootstrap.
+├── 2. Configuration (Público | Nível $HOME / IA)   ➔ Dotfiles declarativos, editores, terminais, linters e skills de IA.
+├── 3. Shell         (Público | Linha de Comando)   ➔ Motor interativo de terminal, prompts rápidos, aliases, bibliotecas POSIX.
+└── 4. Vault         (Privado | Cofre Criptográfico) ➔ Chaves SSH, senhas, tokens, hosts e variáveis de ambiente sensíveis.
+```
+
+- [ ] **Desacoplamento de Papéis (`Setup` = Zero-Clone Web / `Config` = Residente Local):**
+    - **`Setup` (GitHub-First / Cookbook / Zero-Clone):** Repositório de receitas atômicas de SO para provisionamento ativo (`curl | sh`), pensado para viver no GitHub e ser consumido sob demanda sem necessidade de clone contínuo.
+    - **`Config` (Residente / Single Source of Truth no `$HOME`):** Repositório clonado localmente (ao lado do `Vault` e do `Shell`) que serve como a fonte única de verdade para sincronizar dotfiles, formatadores, editores e skills de IA através de links simbólicos e atualizações via `git pull`.
+- [ ] **Definição Canônica dos Locais e Modelos de Instalação do Quarteto:**
+    - **`Setup`:** Efêmero / Web-First / CLI de provisionamento com privilégios de sistema (`root`/`admin`).
+    - **`Shell`:** `/usr/local/share/shell` (nível de sistema, consumido por todos os usuários e pelo `root`).
+    - **`Vault`:** `~/.vault` (residente no `$HOME`, cofre privado `0700`/`0600`).
+    - **`Config`:** `~/.config/configuration` ou `~/.configuration` (residente no `$HOME`, zero sudo, symlinks dinâmicos).
+- [ ] **Atualização Arquitetural da Documentação:**
+    - Atualizar diagramas Mermaid em `docs/ARCHITECTURE.md` e `docs/PHILOSOPHY.md` para formalizar a transição da Tríade para o Quarteto.
+    - Sincronizar scripts de inicialização rápida (`bootstrap.sh` / `setup.sh`) consumindo os 4 repositórios em cadeia com separação estrita de privilégios.
+
+
