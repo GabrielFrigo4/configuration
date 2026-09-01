@@ -4,15 +4,17 @@
 # ------------------------------------------------------------------------------
 set -eu
 
-if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
-	SUDO="sudo"
+if [ "$(id -u)" -ne 0 ] && command -v doas > "/dev/null" 2>&1; then
+	ELEVATE="doas"
+elif [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	ELEVATE="sudo"
 else
-	SUDO=""
+	ELEVATE=""
 fi
 
-TARGET_USER="${SUDO_USER:-$(id -un)}"
+TARGET_USER="${DOAS_USER:-${SUDO_USER:-$(id -un)}}"
 
-${SUDO} pacman -S --needed --noconfirm \
+${ELEVATE} pacman -S --needed --noconfirm \
 	qemu-desktop \
 	libvirt \
 	dnsmasq \
@@ -21,7 +23,7 @@ ${SUDO} pacman -S --needed --noconfirm \
 	virt-manager \
 	virt-viewer
 
-${SUDO} systemctl enable --now libvirtd 2> "/dev/null" || true
-${SUDO} usermod --append --groups libvirt "${TARGET_USER}" 2> "/dev/null" || true
-${SUDO} virsh --connect qemu:///system net-autostart default 2> "/dev/null" || true
-${SUDO} virsh --connect qemu:///system net-start default 2> "/dev/null" || true
+${ELEVATE} systemctl enable --now libvirtd 2> "/dev/null" || true
+${ELEVATE} usermod --append --groups libvirt "${TARGET_USER}" 2> "/dev/null" || true
+${ELEVATE} virsh --connect qemu:///system net-autostart default 2> "/dev/null" || true
+${ELEVATE} virsh --connect qemu:///system net-start default 2> "/dev/null" || true

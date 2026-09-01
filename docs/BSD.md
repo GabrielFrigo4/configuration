@@ -50,7 +50,7 @@ Os perfis do Konsole em `software/terminals/konsole/` são **100% compartilhados
 
 Seguindo a simetria em 4 pilares do repositório, as receitas do FreeBSD residem em [`bootstrap/freebsd/`](../bootstrap/freebsd/README.md):
 
-- **[`common/`](../bootstrap/freebsd/common/README.md):** `system/doas.sh` (permissões `0440`), `system/sysctl.sh` e `tools/cli.sh`.
+- **[`common/`](../bootstrap/freebsd/common/README.md):** `system/nopass.sh` (permissões `0440`), `system/sysctl.sh` e `tools/cli.sh`.
 - **[`container/`](../bootstrap/freebsd/container/README.md):** `jails.sh` (Jails nativas), `bastille.sh` (BastilleBSD) e `podman.sh` (Podman OCI nativo).
 - **[`desktop/`](../bootstrap/freebsd/desktop/README.md):** `gui/kde.sh` (KDE Plasma 6), `apps/epub.sh`, `ports/ports.sh`, `emulation/linuxlator.sh`, `security/wireshark.sh` e `devices/audio.sh`.
 - **[`server/`](../bootstrap/freebsd/server/README.md):** `system/guest.sh` (QEMU Guest Agent para VM KVM) e `connect.sh` (conexão dinâmica SSH/SCP).

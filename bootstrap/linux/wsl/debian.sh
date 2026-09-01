@@ -6,24 +6,26 @@ set -eu
 
 echo "📦 [WSL Debian]: Configurando usuário, systemd e ferramentas base..."
 
-if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
-	SUDO="sudo"
+if [ "$(id -u)" -ne 0 ] && command -v doas > "/dev/null" 2>&1; then
+	ELEVATE="doas"
+elif [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	ELEVATE="sudo"
 else
-	SUDO=""
+	ELEVATE=""
 fi
 
-TARGET_USER="${SUDO_USER:-gabriel}"
+TARGET_USER="${DOAS_USER:-${SUDO_USER:-gabriel}}"
 
 if ! id "${TARGET_USER}" > "/dev/null" 2>&1; then
 	useradd -m -G sudo -s /usr/bin/bash "${TARGET_USER}"
 fi
 
-cat << 'EOF' | ${SUDO} tee "/etc/sudoers.d/wheel" > "/dev/null"
-%sudo ALL=(ALL:ALL) ALL
+cat << 'EOF' | ${ELEVATE} tee "/etc/sudoers.d/sudo" > "/dev/null"
+%sudo ALL=(ALL:ALL) NOPASSWD: ALL
 EOF
-${SUDO} chmod 0440 "/etc/sudoers.d/wheel"
+${ELEVATE} chmod 0440 "/etc/sudoers.d/sudo"
 
-cat << EOF | ${SUDO} tee "/etc/wsl.conf" > "/dev/null"
+cat << EOF | ${ELEVATE} tee "/etc/wsl.conf" > "/dev/null"
 [boot]
 systemd=true
 
@@ -31,9 +33,9 @@ systemd=true
 default=${TARGET_USER}
 EOF
 
-${SUDO} apt update
-${SUDO} apt upgrade -y
-${SUDO} apt install --yes \
+${ELEVATE} apt update
+${ELEVATE} apt upgrade --yes
+${ELEVATE} apt install --yes \
 	doas \
 	build-essential \
 	git \
@@ -46,9 +48,9 @@ ${SUDO} apt install --yes \
 	fd-find \
 	fastfetch
 
-cat << 'EOF' | ${SUDO} tee "/etc/doas.conf" > "/dev/null"
-permit persist :sudo
+cat << 'EOF' | ${ELEVATE} tee "/etc/doas.conf" > "/dev/null"
+permit nopass :sudo
 EOF
-${SUDO} chmod 0440 "/etc/doas.conf"
+${ELEVATE} chmod 0440 "/etc/doas.conf"
 
 echo "✅ [WSL Debian]: Ambiente Debian WSL2 configurado com sucesso!"

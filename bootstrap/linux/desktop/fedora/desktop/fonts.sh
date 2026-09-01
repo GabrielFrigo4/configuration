@@ -6,13 +6,15 @@ set -eu
 
 echo "📦 [Fedora Fonts]: Instalando fontes Carlito e Caladea..."
 
-if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
-	SUDO="sudo"
+if [ "$(id -u)" -ne 0 ] && command -v doas > "/dev/null" 2>&1; then
+	ELEVATE="doas"
+elif [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	ELEVATE="sudo"
 else
-	SUDO=""
+	ELEVATE=""
 fi
 
-${SUDO} dnf install --assumeyes google-carlito-fonts google-caladea-fonts
+${ELEVATE} dnf install --assumeyes google-carlito-fonts google-caladea-fonts
 
 FONTCONFIG_DIR="${HOME}/.config/fontconfig"
 mkdir -p "${FONTCONFIG_DIR}"

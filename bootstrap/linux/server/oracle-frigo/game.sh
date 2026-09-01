@@ -6,13 +6,15 @@ set -eu
 
 echo "📦 [Frigo Server]: Configurando serviço Game..."
 
-if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
-	SUDO="sudo"
+if [ "$(id -u)" -ne 0 ] && command -v doas > "/dev/null" 2>&1; then
+	ELEVATE="doas"
+elif [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	ELEVATE="sudo"
 else
-	SUDO=""
+	ELEVATE=""
 fi
 
-TARGET_USER="${SUDO_USER:-$(id -un)}"
+TARGET_USER="${DOAS_USER:-${SUDO_USER:-$(id -un)}}"
 USER_HOME="$(eval echo "~${TARGET_USER}")"
 
 mkdir -p "${USER_HOME}/game"
@@ -27,7 +29,7 @@ if [ ! -f "${USER_HOME}/game/.env" ]; then
 	echo "   Edite-o manualmente com as credenciais guardadas no seu Vault."
 fi
 
-cat << EOF | ${SUDO} tee "/etc/systemd/system/game.service" > "/dev/null"
+cat << EOF | ${ELEVATE} tee "/etc/systemd/system/game.service" > "/dev/null"
 [Unit]
 Description=Gabriel Frigo - Game
 After=network.target
@@ -44,7 +46,7 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 
-${SUDO} systemctl daemon-reload
-${SUDO} systemctl enable --now game 2> "/dev/null" || true
+${ELEVATE} systemctl daemon-reload
+${ELEVATE} systemctl enable --now game 2> "/dev/null" || true
 
 echo "✅ [Frigo Server]: Serviço Game configurado!"

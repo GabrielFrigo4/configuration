@@ -6,10 +6,12 @@ set -eu
 
 echo "📦 [FreeBSD Audio]: Iniciando roteamento de áudio..."
 
-if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
-	SUDO="sudo"
+if [ "$(id -u)" -ne 0 ] && command -v doas > "/dev/null" 2>&1; then
+	ELEVATE="doas"
+elif [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	ELEVATE="sudo"
 else
-	SUDO=""
+	ELEVATE=""
 fi
 
 if ! ifconfig ue0 > "/dev/null" 2>&1; then
@@ -17,7 +19,7 @@ if ! ifconfig ue0 > "/dev/null" 2>&1; then
 	exit 1
 fi
 
-${SUDO} dhclient ue0 > "/dev/null" 2>&1 || true
+${ELEVATE} dhclient ue0 > "/dev/null" 2>&1 || true
 
 PHONE_IP="$(grep 'dhcp-server-identifier' "/var/db/dhclient.leases.ue0" 2> "/dev/null" | tail -1 | awk '{print $3}' | tr -d ';')"
 

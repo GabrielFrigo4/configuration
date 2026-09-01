@@ -14,11 +14,12 @@ Reúne receitas atômicas para configurar aplicações em instâncias remotas na
 
 ## 📂 Catálogo de Recursos & Servidores
 
-| Recurso / Servidor                            | Tipo               | Descrição                                                                            |
-| :-------------------------------------------- | :----------------- | :----------------------------------------------------------------------------------- |
-| **[`connect.sh`](connect.sh)**                | Ferramenta         | Conexão SSH unificada aos servidores (`sh connect.sh frigo` ou `sh connect.sh orbs`) |
-| **[`oracle-frigo/`](oracle-frigo/README.md)** | Servidor Pessoal   | Reverse proxy Caddy e serviços systemd (`resume`, `game`)                            |
-| **[`oracle-orbs/`](oracle-orbs/README.md)**   | Servidor Comercial | Reverse proxy Caddy e serviço systemd em container Podman (`catalogo`)               |
+| Recurso / Servidor                                                     | Tipo               | Descrição                                                                            |
+| :--------------------------------------------------------------------- | :----------------- | :----------------------------------------------------------------------------------- |
+| **[`connect.sh`](connect.sh)**                                         | Ferramenta         | Conexão SSH unificada aos servidores (`sh connect.sh frigo` ou `sh connect.sh orbs`) |
+| **[`../../common/system/persist.sh`](../../common/system/persist.sh)** | Receita            | Elevação com `doas` e `sudo` com senha e persistência de sessão (0440)               |
+| **[`oracle-frigo/`](oracle-frigo/README.md)**                          | Servidor Pessoal   | Reverse proxy Caddy e serviços systemd (`resume`, `game`)                            |
+| **[`oracle-orbs/`](oracle-orbs/README.md)**                            | Servidor Comercial | Reverse proxy Caddy e serviço systemd em container Podman (`catalogo`)               |
 
 ---
 

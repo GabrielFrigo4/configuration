@@ -204,10 +204,12 @@ set -eu
 
 echo "📦 [Nome]: Iniciando configuração..."
 
-if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
-	SUDO="sudo"
+if [ "$(id -u)" -ne 0 ] && command -v doas > "/dev/null" 2>&1; then
+	ELEVATE="doas"
+elif [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	ELEVATE="sudo"
 else
-	SUDO=""
+	ELEVATE=""
 fi
 
 # Execução atômica e idempotente
@@ -269,26 +271,26 @@ Ao utilizar _Dispatch Leve_ em receitas universais, as verificações condiciona
 
 ```sh
 if command -v pkg > "/dev/null" 2>&1; then
-	${SUDO} pkg install --yes pacote
+	${ELEVATE} pkg install --yes pacote
 elif command -v dnf > "/dev/null" 2>&1; then
-	${SUDO} dnf install --assumeyes pacote
+	${ELEVATE} dnf install --assumeyes pacote
 elif command -v apt > "/dev/null" 2>&1; then
-	${SUDO} apt install --yes pacote
+	${ELEVATE} apt install --yes pacote
 elif command -v pacman > "/dev/null" 2>&1; then
-	${SUDO} pacman -S --needed --noconfirm pacote
+	${ELEVATE} pacman -S --needed --noconfirm pacote
 fi
 ```
 
 ### 14. Preferência Absoluta por Flags Longas e Autoexplicativas (Expressões por Extenso)
 
 - **Código autodocumentado:** Em receitas e scripts de automação, evite atalhos curtos crípticos (como `-y`, `-s`, `-g`, `-e`, `-h`) sempre que a ferramenta oferecer equivalentes longos e descritivos:
-  - `apt install --yes` (em vez de `apt install -y`)
-  - `dnf install --assumeyes` (em vez de `dnf install -y`)
-  - `pkg install --yes` (em vez de `pkg install -y`)
-  - `pacman -S --needed --noconfirm` (em vez de flags aglutinadas)
-  - `flatpak install --assumeyes` (em vez de `flatpak install -y`)
-  - `npm install --global` (em vez de `npm install -g`)
-  - `usermod --append --groups` (em vez de `usermod -aG`)
+    - `apt install --yes` (em vez de `apt install -y`)
+    - `dnf install --assumeyes` (em vez de `dnf install -y`)
+    - `pkg install --yes` (em vez de `pkg install -y`)
+    - `pacman -S --needed --noconfirm` (em vez de flags aglutinadas)
+    - `flatpak install --assumeyes` (em vez de `flatpak install -y`)
+    - `npm install --global` (em vez de `npm install -g`)
+    - `usermod --append --groups` (em vez de `usermod -aG`)
 - **Justificativa:** Scripts de infraestrutura são lidos e auditados muito mais vezes do que digitados. Flags longas tornam a intenção do código transparente e autoexplicativa sem que o leitor precise consultar a página de manual (`man`).
 - **Exceção Canônica:** Comandos e utilitários fundamentais POSIX (`mkdir -p`, `rm -rf`, `ln -sf`, `id -u`, `set -eu`, `chmod 0755`) mantêm sua notação POSIX padrão para garantir máxima portabilidade entre Linux, FreeBSD e macOS, já que variantes BSD de coreutils não suportam extensões longas GNU (como `--parents`).
 
@@ -297,11 +299,11 @@ fi
 A estrutura de diretórios do repositório segue rigorosamente 3 regras semânticas de nomenclatura para manter simetria e previsibilidade:
 
 1. **Coleções de Itens Tangíveis / Contáveis $\rightarrow$ PLURAL:** Pastas que agrupam múltiplos arquivos, ferramentas ou categorias contáveis utilizam sempre substantivos no plural.
-   - *Exemplos:* `skills/`, `scripts/`, `docs/`, `editors/`, `terminals/`, `browsers/`, `tools/`, `apps/`, `fonts/`, `linters/`, `devices/`, `ports/`.
-2. **Processos, Áreas de Sistema & Nomes de Massa $\rightarrow$ SINGULAR:** Pastas que representam um conceito abstrato, ação/processo, área funcional ou substantivos incontáveis (*mass nouns* em inglês) utilizam sempre o singular.
-   - *Exemplos:* `bootstrap/`, `software/`, `system/`, `security/`, `network/`, `gui/`, `virtualization/`, `emulation/`, `desktop/`, `server/`, `container/`, `audit/`, `build/`, `convert/`.
+    - _Exemplos:_ `skills/`, `scripts/`, `docs/`, `editors/`, `terminals/`, `browsers/`, `tools/`, `apps/`, `fonts/`, `linters/`, `devices/`, `ports/`.
+2. **Processos, Áreas de Sistema & Nomes de Massa $\rightarrow$ SINGULAR:** Pastas que representam um conceito abstrato, ação/processo, área funcional ou substantivos incontáveis (_mass nouns_ em inglês) utilizam sempre o singular.
+    - _Exemplos:_ `bootstrap/`, `software/`, `system/`, `security/`, `network/`, `gui/`, `virtualization/`, `emulation/`, `desktop/`, `server/`, `container/`, `audit/`, `build/`, `convert/`.
 3. **Nomes Próprios & Tecnologias $\rightarrow$ NOME CANÔNICO:** Pastas de sistemas operacionais, distribuições ou aplicações mantêm seu nome próprio literal em minúsculas.
-   - *Exemplos:* `linux/`, `freebsd/`, `windows/`, `fedora/`, `arch/`, `debian/`, `firefox/`, `vscode/`, `zed/`, `konsole/`.
+    - _Exemplos:_ `linux/`, `freebsd/`, `windows/`, `fedora/`, `arch/`, `debian/`, `firefox/`, `vscode/`, `zed/`, `konsole/`.
 
 ---
 

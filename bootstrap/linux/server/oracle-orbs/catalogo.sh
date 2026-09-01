@@ -6,20 +6,22 @@ set -eu
 
 echo "📦 [Orbs Server]: Configurando serviço Catalogo..."
 
-if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
-	SUDO="sudo"
+if [ "$(id -u)" -ne 0 ] && command -v doas > "/dev/null" 2>&1; then
+	ELEVATE="doas"
+elif [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	ELEVATE="sudo"
 else
-	SUDO=""
+	ELEVATE=""
 fi
 
-TARGET_USER="${SUDO_USER:-$(id -un)}"
+TARGET_USER="${DOAS_USER:-${SUDO_USER:-$(id -un)}}"
 USER_HOME="$(eval echo "~${TARGET_USER}")"
 
 podman network exists "rede-catalogo" 2> "/dev/null" || podman network create --ipv6 "rede-catalogo" > "/dev/null" 2>&1 || true
 
 mkdir -p "${USER_HOME}/catalogo/pb_data"
 
-cat << EOF | ${SUDO} tee "/etc/systemd/system/catalogo.service" > "/dev/null"
+cat << EOF | ${ELEVATE} tee "/etc/systemd/system/catalogo.service" > "/dev/null"
 [Unit]
 Description=Orbs Tech Solution - Catalogo Container
 After=network.target
@@ -48,7 +50,7 @@ RestartSec=3
 WantedBy=multi-user.target
 EOF
 
-${SUDO} systemctl daemon-reload
-${SUDO} systemctl enable --now catalogo 2> "/dev/null" || true
+${ELEVATE} systemctl daemon-reload
+${ELEVATE} systemctl enable --now catalogo 2> "/dev/null" || true
 
 echo "✅ [Orbs Server]: Serviço Catalogo configurado!"

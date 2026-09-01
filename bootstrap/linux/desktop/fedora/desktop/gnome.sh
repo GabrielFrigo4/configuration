@@ -6,13 +6,15 @@ set -eu
 
 echo "📦 [Fedora GNOME]: Configurando ambiente GNOME e atalhos..."
 
-if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
-	SUDO="sudo"
+if [ "$(id -u)" -ne 0 ] && command -v doas > "/dev/null" 2>&1; then
+	ELEVATE="doas"
+elif [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	ELEVATE="sudo"
 else
-	SUDO=""
+	ELEVATE=""
 fi
 
-${SUDO} dnf install --assumeyes gnome-tweak-tool adw-gtk3-theme plasma-breeze-qt6
+${ELEVATE} dnf install --assumeyes gnome-tweak-tool adw-gtk3-theme plasma-breeze-qt6
 
 mkdir -p "${HOME}/.config/environment.d"
 echo "QT_QPA_PLATFORMTHEME=qt6ct" > "${HOME}/.config/environment.d/qt.conf"

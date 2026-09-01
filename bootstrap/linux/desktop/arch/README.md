@@ -16,7 +16,7 @@ Organiza a configuração do Arch Linux em módulos desacoplados: sistema base, 
 
 | Categoria             | Receita                                            | Descrição                                                |
 | :-------------------- | :------------------------------------------------- | :------------------------------------------------------- |
-| **`system/`**         | [`system/base.sh`](system/base.sh)                 | Mirrors, SDDM, limite de journald e doas                 |
+| **`system/`**         | [`system/base.sh`](system/base.sh)                 | Mirrors, SDDM e limite de journald                       |
 | **`system/`**         | [`system/diagnostics.sh`](system/diagnostics.sh)   | Diagnóstico de kernel, firmware e dispositivos           |
 | **`desktop/`**        | [`desktop/hardware.sh`](desktop/hardware.sh)       | Mesa, drivers de aceleração VA-API, Vulkan e regras udev |
 | **`virtualization/`** | [`virtualization/qemu.sh`](virtualization/qemu.sh) | QEMU, Libvirt, Virt-Manager e rede padrão                |

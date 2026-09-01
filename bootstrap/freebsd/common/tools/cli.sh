@@ -6,13 +6,15 @@ set -eu
 
 echo "📦 [FreeBSD CLI]: Instalando utilitários essenciais de terminal..."
 
-if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
-	SUDO="sudo"
+if [ "$(id -u)" -ne 0 ] && command -v doas > "/dev/null" 2>&1; then
+	ELEVATE="doas"
+elif [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	ELEVATE="sudo"
 else
-	SUDO=""
+	ELEVATE=""
 fi
 
-${SUDO} pkg install --yes \
+${ELEVATE} pkg install --yes \
 	bash \
 	zsh \
 	curl \

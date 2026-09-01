@@ -6,20 +6,19 @@ set -eu
 
 echo "📦 [Fedora Base]: Configurando sistema base, filesystems e workspace..."
 
-if [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
-	SUDO="sudo"
+if [ "$(id -u)" -ne 0 ] && command -v doas > "/dev/null" 2>&1; then
+	ELEVATE="doas"
+elif [ "$(id -u)" -ne 0 ] && command -v sudo > "/dev/null" 2>&1; then
+	ELEVATE="sudo"
 else
-	SUDO=""
+	ELEVATE=""
 fi
 
-# Suporte a sistemas de arquivos remotos
-${SUDO} dnf install --assumeyes fuse-sshfs
+${ELEVATE} dnf install --assumeyes fuse-sshfs
 
-# Desativação de daemons de firmware redundantes
-${SUDO} systemctl mask --now fwupd fwupd.socket 2> "/dev/null" || true
-${SUDO} rm -rf /var/cache/fwupd/
+${ELEVATE} systemctl mask --now fwupd fwupd.socket 2> "/dev/null" || true
+${ELEVATE} rm -rf /var/cache/fwupd/
 
-# Modelos de novos documentos para o menu de contexto do GNOME
 MODELOS_DIR="${HOME}/Modelos"
 mkdir -p "${MODELOS_DIR}"
 

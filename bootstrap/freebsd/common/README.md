@@ -12,11 +12,11 @@ Esta pasta centraliza as configurações essenciais do FreeBSD que independem de
 
 ## 📂 Catálogo de Receitas
 
-| Recurso       | Receita                                | Descrição                                                                                       |
-| :------------ | :------------------------------------- | :---------------------------------------------------------------------------------------------- |
-| **`system/`** | [`system/doas.sh`](system/doas.sh)     | Configura `doas.conf` e `sudoers.d/wheel` com permissões `0440`                                 |
-| **`system/`** | [`system/sysctl.sh`](system/sysctl.sh) | Desativa core dumps e aplica parâmetros recomendados no `/etc/sysctl.conf`                      |
-| **`tools/`**  | [`tools/cli.sh`](tools/cli.sh)         | Instala utilitários CLI modernos (`eza`, `bat`, `ripgrep`, `fd-find`, `git`, `gh`, `fastfetch`) |
+| Recurso       | Receita                                                          | Descrição                                                                                       |
+| :------------ | :--------------------------------------------------------------- | :---------------------------------------------------------------------------------------------- |
+| **`system/`** | [`../../common/system/nopass.sh`](../../common/system/nopass.sh) | Configura `doas` e `sudo` sem senha para Desktop (0440)                                         |
+| **`system/`** | [`system/sysctl.sh`](system/sysctl.sh)                           | Desativa core dumps e aplica parâmetros recomendados no `/etc/sysctl.conf`                      |
+| **`tools/`**  | [`tools/cli.sh`](tools/cli.sh)                                   | Instala utilitários CLI modernos (`eza`, `bat`, `ripgrep`, `fd-find`, `git`, `gh`, `fastfetch`) |
 
 ---
 
@@ -25,8 +25,9 @@ Esta pasta centraliza as configurações essenciais do FreeBSD que independem de
 Execute qualquer receita diretamente via terminal no FreeBSD:
 
 ```sh
-# Configurar doas
-curl -fsSL https://raw.githubusercontent.com/GabrielFrigo4/Configuration/main/bootstrap/freebsd/common/system/doas.sh | sh
+# Configurar elevação de privilégios sem senha (doas + sudo)
+curl -fsSL https://raw.githubusercontent.com/GabrielFrigo4/Configuration/main/bootstrap/common/system/nopass.sh | sh
+
 
 # Instalar utilitários CLI
 curl -fsSL https://raw.githubusercontent.com/GabrielFrigo4/Configuration/main/bootstrap/freebsd/common/tools/cli.sh | sh
