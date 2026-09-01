@@ -25,7 +25,7 @@ elif [ -f "/opt/antigravity/antigravity-ide" ]; then
 fi
 
 if [ -f "/opt/antigravity/antigravity-ide" ]; then
-	cat <<-"EOF" | ${SUDO} tee "/usr/share/applications/antigravity.desktop" > "/dev/null"
+	cat <<- "EOF" | ${SUDO} tee "/usr/share/applications/antigravity.desktop" > "/dev/null"
 	[Desktop Entry]
 	Name=Antigravity IDE
 	Comment=Antigravity IDE

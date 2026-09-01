@@ -22,7 +22,7 @@ if [ ! -f "${DEVFS_CONF}" ]; then
 fi
 
 if ! grep -q "own.*bpf" "${DEVFS_CONF}" 2> "/dev/null"; then
-	cat <<-'EOF' | ${SUDO} tee -a "${DEVFS_CONF}" > "/dev/null"
+	cat <<- 'EOF' | ${SUDO} tee -a "${DEVFS_CONF}" > "/dev/null"
 
 	[system=10]
 	add path 'bpf*' mode 0660 group wheel

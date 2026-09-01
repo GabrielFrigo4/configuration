@@ -18,7 +18,7 @@ USER_HOME="$(eval echo "~${TARGET_USER}")"
 mkdir -p "${USER_HOME}/game"
 
 if [ ! -f "${USER_HOME}/game/.env" ]; then
-	cat <<-EOF > "${USER_HOME}/game/.env"
+	cat <<- EOF > "${USER_HOME}/game/.env"
 	ADMIN_USER="${GAME_ADMIN_USER:-admin}"
 	ADMIN_PASS="${GAME_ADMIN_PASS:-change_me}"
 	EOF
