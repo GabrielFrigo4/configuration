@@ -1,8 +1,8 @@
 @echo off
 setlocal
-
-REM Game of Trees (Got) Configuration (Windows / MSYS2)
-REM Configura o arquivo .gotconfig com base nas credenciais do Vault.
+rem ----------------------------------------------------------------------------
+rem Recipe: Game of Trees (Got) Configuration (Windows)
+rem ----------------------------------------------------------------------------
 
 set "GOT_CONF=%USERPROFILE%\.gotconfig"
 

@@ -18,10 +18,10 @@ USER_HOME="$(eval echo "~${TARGET_USER}")"
 mkdir -p "${USER_HOME}/game"
 
 if [ ! -f "${USER_HOME}/game/.env" ]; then
-	cat << EOF > "${USER_HOME}/game/.env"
-ADMIN_USER="${GAME_ADMIN_USER:-admin}"
-ADMIN_PASS="${GAME_ADMIN_PASS:-change_me}"
-EOF
+	cat <<-EOF > "${USER_HOME}/game/.env"
+	ADMIN_USER="${GAME_ADMIN_USER:-admin}"
+	ADMIN_PASS="${GAME_ADMIN_PASS:-change_me}"
+	EOF
 	chmod 0600 "${USER_HOME}/game/.env"
 	echo "ℹ️  Arquivo ${USER_HOME}/game/.env criado com modelo inicial (chmod 0600)."
 	echo "   Edite-o manualmente com as credenciais guardadas no seu Vault."

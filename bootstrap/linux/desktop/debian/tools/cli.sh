@@ -33,18 +33,18 @@ ${SUDO} apt install --yes \
 mkdir -p "/usr/local/bin"
 
 if command -v batcat > "/dev/null" 2>&1 && [ ! -f "/usr/local/bin/bat" ]; then
-	cat << 'EOF' | ${SUDO} tee "/usr/local/bin/bat" > "/dev/null"
-#!/usr/bin/env sh
-batcat "$@"
-EOF
+	cat <<-'EOF' | ${SUDO} tee "/usr/local/bin/bat" > "/dev/null"
+	#!/usr/bin/env sh
+	batcat "$@"
+	EOF
 	${SUDO} chmod 0755 "/usr/local/bin/bat"
 fi
 
 if command -v fdfind > "/dev/null" 2>&1 && [ ! -f "/usr/local/bin/fd" ]; then
-	cat << 'EOF' | ${SUDO} tee "/usr/local/bin/fd" > "/dev/null"
-#!/usr/bin/env sh
-fdfind "$@"
-EOF
+	cat <<-'EOF' | ${SUDO} tee "/usr/local/bin/fd" > "/dev/null"
+	#!/usr/bin/env sh
+	fdfind "$@"
+	EOF
 	${SUDO} chmod 0755 "/usr/local/bin/fd"
 fi
 

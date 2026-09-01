@@ -1,9 +1,9 @@
 @echo off
 setlocal
+rem ----------------------------------------------------------------------------
+rem Recipe: LibreSprite Build from Source (Windows)
+rem ----------------------------------------------------------------------------
 
-REM Recipe: LibreSprite Build from Source
-REM Target: Windows (x64)
-REM Description: Clona e compila LibreSprite via CMake e Ninja.
 
 if not exist "LibreSprite" (
     git clone --recursive "https://github.com/LibreSprite/LibreSprite"

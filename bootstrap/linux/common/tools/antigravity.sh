@@ -25,19 +25,18 @@ elif [ -f "/opt/antigravity/antigravity-ide" ]; then
 fi
 
 if [ -f "/opt/antigravity/antigravity-ide" ]; then
-
-	cat << "EOF" | ${SUDO} tee "/usr/share/applications/antigravity.desktop" > "/dev/null"
-[Desktop Entry]
-Name=Antigravity IDE
-Comment=Antigravity IDE
-Exec=/opt/antigravity/antigravity-ide %U
-Terminal=false
-Type=Application
-Icon=/opt/antigravity/resources/app/resources/linux/code.png
-Categories=Development;IDE;
-StartupWMClass=antigravity-ide
-MimeType=x-scheme-handler/antigravity;
-EOF
+	cat <<-"EOF" | ${SUDO} tee "/usr/share/applications/antigravity.desktop" > "/dev/null"
+	[Desktop Entry]
+	Name=Antigravity IDE
+	Comment=Antigravity IDE
+	Exec=/opt/antigravity/antigravity-ide %U
+	Terminal=false
+	Type=Application
+	Icon=/opt/antigravity/resources/app/resources/linux/code.png
+	Categories=Development;IDE;
+	StartupWMClass=antigravity-ide
+	MimeType=x-scheme-handler/antigravity;
+	EOF
 fi
 
 echo "✅ [Linux Antigravity]: Antigravity IDE & CLI configurados com sucesso!"

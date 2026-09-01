@@ -1,11 +1,10 @@
 @echo off
 setlocal
-
-rem Enable Auto Confirmation
+rem ----------------------------------------------------------------------------
+rem Recipe: Windows Package Manager (Winget) Curated Packages
+rem ----------------------------------------------------------------------------
 
 winget settings --enable InstallerHashOverride
-
-rem Install Winget Packages
 
 rem --------------------------------
 rem language
@@ -186,7 +185,7 @@ winget install firefoxpwa
 
 rem --------------------------------
 rem tweaker
-rem --------------------------------s
+rem --------------------------------
 winget install winaero.tweaker
 winget install ArminOsaj.AutoDarkMode
 
@@ -216,8 +215,6 @@ rem --------------------------------
 winget install Logitech.GHUB
 winget install timschneeb.GalaxyBudsClient
 winget install OBSProject.OBSStudio
-
-rem Add Pin Winget Packages
 
 rem --------------------------------
 rem programming

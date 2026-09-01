@@ -1,3 +1,6 @@
+# ------------------------------------------------------------------------------
+# Tool: Markdown to PDF Batch Converter (PowerShell)
+# ------------------------------------------------------------------------------
 param (
 	[Parameter(Mandatory=$false)]
 	[ValidateScript({Test-Path $_ -PathType Container})]
